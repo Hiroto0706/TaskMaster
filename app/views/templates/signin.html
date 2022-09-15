@@ -1,0 +1,18 @@
+{{define "content"}}
+<div class="welcome">
+  <div class="post-form-content">
+    <h2 class="post-form-title">Sign In</h2>
+    <br>
+    <form action="/authenticate" method="post" role="form" class="post-form">
+      <span>メールアドレス</span>
+      <input type="email" name="email" placeholder="メールアドレスを入力してください。">
+      <span>パスワード</span>
+      <input type="password" name="password" placeholder="パスワードを入力してください。">
+      <span>パスワード(確認)</span>
+      <input type="password" name="passwordCheck" placeholder="パスワードを入力してください。(確認)"><br>
+      <button>Log In</button>
+    </form>
+  </div>
+  <span>アカウントをお持ちでない方は<a href="/signup">こちら</a></span>
+</div>
+{{end}}

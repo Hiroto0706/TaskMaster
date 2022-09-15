@@ -1,0 +1,299 @@
+{{define "content"}}
+<div class="main-content">
+  <div class="create-task">
+    <form class="create-task-form" action="" method="POST" role="form">
+      <div class="input-form">
+
+
+        {{if .Status}}
+        <div class="task-input">
+          <input type="text" placeholder="Task" name="task" class="input-form__task" value="{{.Title}}" autocomplete="off">
+  
+          <section class="workspace">
+            <div class="bg-black cancel"></div>
+            <div class="workspace__content">
+              <h3>TASKS</h3>
+              <div class="scroll-content">
+
+                <ul>
+                  {{range .Tasks}}
+                  <li class="pointer">
+                    <span class="task-title">{{.Title}}</span>
+                    <span class="category-color-span">
+                      <span class="color-span"></span>
+                      <span class="category">{{.Category.Name}}</span>
+                    </span>
+                  </li>
+                  {{end}}
+                </ul>
+
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div>
+          <div class="input-form__category-div">
+            <span id="color-selector"></span>
+
+            <section class="workspace-color">
+              <div class="bg-cancel cancel"></div>
+              <div id="color-selector__modal">
+                <h3>COLOR</h3>
+                <ul class="flex-content">
+                  <li class="red pointer"><span></span>red</li>
+                  <li class="purple pointer"><span></span>purple</li>
+                  <li class="blue pointer"><span></span>blue</li>
+                  <li class="bluegreen pointer"><span></span>bluegreen</li>
+                  <li class="green pointer"><span></span>green</li>
+                  <li class="yellow pointer"><span></span>yellow</li>
+                  <li class="brown pointer"><span></span>brown</li>
+                  <li class="orange pointer"><span></span>orange</li>
+                  <li class="black pointer"><span></span>black</li>
+                </ul>
+              </div>
+            </section>
+
+            <input type="text" placeholder="Category" name="category" class="input-form__category" value="{{.Category.Name}}" autocomplete="off">
+          </div>
+
+          <section class="workspace-category">
+            <div class="bg-cancel cancel"></div>
+            <div class="workspace-category__content">
+              <h3>CATEGORIES</h3>
+
+              <ul>
+                {{range .Categories}}
+                <li class="flex-content justify-content-space-between">
+                  <span class="category pointer">
+                    <span class="color-span"></span>
+                    <span class="category-span">{{.Name}}</span>
+                    <!-- <input type="text" name="category" value="{{.Name}}"> -->
+                  </span>
+                  <div class="category__span">
+                    <span class="update update-span pointer">Edit</span>
+                    <!-- <span class="delete delete-span pointer">Delete</span> -->
+                  </div>
+                </li>
+                {{end}}
+              </ul>
+              
+              <div>
+                <input type="text" placeholder="New Category" value="" name="new-category">
+                <button class="create-category" type="submit">+ CREATE CATEGORY</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+
+        {{else}}
+        <div class="task-input">
+          <input type="text" placeholder="Task" name="task" class="input-form__task" value="" autocomplete="off">
+  
+          <section class="workspace">
+            <div class="bg-black cancel"></div>
+            <div class="workspace__content">
+              <h3>TASKS</h3>
+              <div class="scroll-content">
+                <ul>
+
+
+                  {{range .Tasks}}
+                  <li class="pointer">
+                    <span class="task-title">{{.Title}}</span> 
+                    <span class="category-color-span">
+                      <span class="color-span"></span>
+                      <span class="category">{{.Category.Name}}</span>
+                    </span>
+                  </li>
+                  {{end}}
+
+
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+    
+        <div>
+          <div class="input-form__category-div">
+            <span id="color-selector"></span>
+
+            <section class="workspace-color">
+              <div class="bg-cancel cancel"></div>
+              <div id="color-selector__modal">
+                <h3>COLOR</h3>
+                <ul class="flex-content">
+                  <li class="red pointer"><span></span>red</li>
+                  <li class="purple pointer"><span></span>purple</li>
+                  <li class="blue pointer"><span></span>blue</li>
+                  <li class="bluegreen pointer"><span></span>bluegreen</li>
+                  <li class="green pointer"><span></span>green</li>
+                  <li class="yellow pointer"><span></span>yellow</li>
+                  <li class="brown pointer"><span></span>brown</li>
+                  <li class="orange pointer"><span></span>orange</li>
+                  <li class="black pointer"><span></span>black</li>
+                </ul>
+              </div>
+            </section>
+
+            <input type="text" placeholder="Category" name="category" class="input-form__category" value="{{.Category.Name}}" autocomplete="off">
+          </div>
+
+          <section class="workspace-category">
+            <div class="bg-cancel cancel"></div>
+            <div class="workspace-category__content">
+              <h3>CATEGORIES</h3>
+              <ul>
+
+
+                {{range .Categories}}
+                <li class="flex-content justify-content-space-between">
+                  <span class="category pointer">
+                    <span class="color-span"></span>
+                    <span class="category-span">{{.Name}}</span>
+                    <!-- <input type="text" name="category" value="{{.Name}}"> -->
+                  </span>
+                  <div class="category__span">
+                    <span class="update update-span pointer">Edit</span>
+                    <!-- <span class="delete delete-span pointer">Delete</span> -->
+                  </div>
+                </li>
+                {{end}}
+
+
+              </ul>
+              <div>
+                <input type="text" placeholder="New Category" value="" name="new-category">
+                <button class="create-category">+ CREATE CATEGORY</button>
+              </div>
+            </div>
+          </section>
+        </div>
+        {{end}}
+
+
+      </div>
+
+      {{if .Status}}
+      <input type="text" name="time" class="time-content run-time" value="{{.StartTime.Hour}}:{{.StartTime.Minute}}:{{.StartTime.Second}}">
+      <div class="run-time-date hidden">{{.StartTime.Year}}/{{.StartTime.Month}}/{{.StartTime.Day}}</div>
+
+
+      {{else}}
+
+
+      <input type="text" name="time" class="time-content" value="0:00:00">
+      {{end}}
+
+
+      <div class="button-div">
+
+
+        {{if .Status}}
+        <button type="submit" class="play-button stop" data-action="/index/stop/{{.ID}}">
+          <img src="/static/img/stop-btn.PNG" class="toggle_img">
+        </button>
+
+
+        {{else}}
+        <button type="submit" class="play-button play" data-action="/index/create">
+          <img src="/static/img/play-btn.PNG" class="toggle_img">
+        </button>
+        {{end}}
+
+
+      </div>
+    </form>
+  </div>
+
+
+
+  <div class="contents">
+    {{range .Durations}}
+    <div class="task-content get-date">
+      <div class="flex-content justify-content-space-between">
+        <span>{{.Date}}</span>
+        <span class="subtime-sum">{{.Sum}}</span>
+      </div>
+      <ul>
+
+
+      {{range .Tasks}}
+        <a id="openModal" class="task-a">
+          <div class="hidden">{{.ID}}</div>
+          <li>
+            <div>
+              <span>{{.Title}}</span><br>
+              {{if .Category.Name}}
+              <span class="task-content__category-span">{{.Category.Name}}</span>
+              {{else}}
+              <span class="task-content__category-span">カテゴリーなし</span>
+              {{end}}
+            </div>
+            <span class="task-content__time">
+              <p class="task-content__time__subtime-{{.ID}}">{{.SubTime}}</p>
+          </span>
+
+          </li>
+        </a>
+
+        <section id="modalArea-{{.ID}}" class="modalArea">
+          <div id="modalBg-{{.ID}}" class="modalBg cancel">
+            <div class="hidden">{{.ID}}</div>
+          </div>
+          <div class="modalWrapper">
+            <div class="modalContents">
+              <form class="modal-content__form" role="form" action="" method="POST">
+                <h3>Details</h3>
+                Task
+                <input type="text" name="task" value="{{.Title}}" class="main-form">
+                Category
+                <input type="text" name="category" value="{{.Category.Name}}" class="main-form"><br>
+                <h3>Durations</h3>
+                <div class="modal-content__form__time-section">
+                  <input type="text" name="duration" value="{{.SubTime}}" class="time-form duration">
+                  <div class="flex-content justify-content-center">
+                    <input type="text" name="start-time-hour" value="{{.StartTime.Hour}}" class="time-form time">
+                    :
+                    <input type="text" name="start-time-minute" value="{{.StartTime.Minute}}" class="time-form time">
+                  </div>
+                  <span>→</span>
+                  <div class="flex-content justify-content-center">
+                    <input type="text" name="end-time-hour" value="{{.EndTime.Hour}}" class="time-form time">
+                    :
+                    <input type="text" name="end-time-minute" value="{{.EndTime.Minute}}" class="time-form time">
+                  </div>
+                </div>
+                <br>
+                <h3>Date</h3>
+                <div class="modal-content__form__date-section">
+                  <input type="text" value="{{.StartTime.Year}}" name="year">
+                  /
+                  <input type="text" value="{{.StartTime.Month}}" class="modal-content__form__date-section__month-{{.ID}}" id="month-val" name="month">
+                  /
+                  <input type="text" value="{{.StartTime.Day}}" name="day">
+                </div>
+                <button type="submit" class="modal-content__form__update-btn" data-action="/index/update/{{.ID}}">Update</button>
+                <button type="submit" class="modal-content__form__delete-btn" data-action="/index/delete/{{.ID}}">Delete</button>
+              </form>
+            </div>
+            <div id="closeModal-{{.ID}}" class="closeModal cancel">
+              ×
+              <div class="hidden">{{.ID}}</div>
+            </div>
+          </div>
+        </section>
+
+      {{end}}
+      </ul>
+    </div>
+    {{end}}
+
+  </div>
+
+</div>
+
+<div id="this-page" class="hidden">list</div>
+{{end}}

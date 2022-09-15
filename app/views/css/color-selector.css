@@ -1,0 +1,129 @@
+@charset "utf-8";
+
+#color-selector__modal {
+  position: absolute;
+    left: 2.5%;
+  width: 50%;
+  height: auto;
+  background-color: white;
+  border: solid 1px black;
+  border-radius: 20px;
+  padding: 2% 4%;
+  z-index: 999;
+  box-shadow: 5px 10px 20px rgba(0,0,0,0.25);
+}
+
+#color-selector__modal h3 {
+  margin: 0;
+  border-bottom: solid 1px black;
+}
+
+#color-selector__modal ul {
+  padding: 8px 12px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+#color-selector__modal ul li {
+  width: calc(33% - 6%);
+  font-weight: bold;
+  padding: 1% 3%;
+}
+
+#color-selector__modal ul li:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+#color-selector__modal ul li span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: antiquewhite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+#color-selector__modal ul .red {
+  color: rgb(223, 19, 19);
+}
+#color-selector__modal ul .red span {
+  background-color: rgb(223, 19, 19);
+}
+
+#color-selector__modal ul .blue {
+  color: rgb(31, 128, 198);
+}
+#color-selector__modal ul .blue span {
+  background-color: rgb(31, 128, 198);
+}
+
+#color-selector__modal ul .green {
+  color: rgb(55, 145, 55);
+}
+#color-selector__modal ul .green span {
+  background-color: rgb(55, 145, 55);
+}
+
+#color-selector__modal ul .yellow {
+  color: rgb(225, 225, 47);
+}
+#color-selector__modal ul .yellow span {
+  background-color: rgb(225, 225, 47);
+}
+
+#color-selector__modal ul .orange {
+  color: rgb(233, 144, 10);
+}
+#color-selector__modal ul .orange span {
+  background-color: rgb(233, 144, 10);
+}
+
+#color-selector__modal ul .brown {
+  color: rgb(120, 76, 41);
+}
+#color-selector__modal ul .brown span {
+  background-color: rgb(120, 76, 41);
+}
+
+#color-selector__modal ul .pink {
+  color: rgb(219, 164, 173);
+}
+#color-selector__modal ul .pink span {
+  background-color: rgb(219, 164, 173);
+}
+
+#color-selector__modal ul .black {
+  color: rgb(50, 50, 50);
+}
+#color-selector__modal ul .black span {
+  background-color: rgb(50, 50, 50);
+}
+
+#color-selector__modal ul .bluegreen {
+  color: rgb(18, 190, 178);
+}
+#color-selector__modal ul .bluegreen span {
+  background-color: rgb(18, 190, 178);
+}
+
+#color-selector__modal ul .gray {
+  color: rgb(150, 150, 150);
+}
+#color-selector__modal ul .gray span {
+  background-color: rgb(150, 150, 150);
+}
+
+#color-selector__modal ul .whitegray {
+  color: rgb(200, 200, 200);
+}
+#color-selector__modal ul .whitegray span {
+  background-color: rgb(200, 200, 200);
+}
+
+#color-selector__modal ul .purple{
+  color: rgb(156, 22, 156);
+}
+#color-selector__modal ul .purple span {
+  background-color: rgb(156, 22, 156);
+}

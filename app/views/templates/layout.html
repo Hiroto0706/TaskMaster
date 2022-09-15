@@ -1,0 +1,46 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/top.css">
+  <link rel="stylesheet" href="/static/css/post-form.css">
+  <link rel="stylesheet" href="/static/css/index.css">
+  <link rel="stylesheet" href="/static/css/mypage.css">
+  <link rel="stylesheet" href="/static/css/category-edit.css">
+  <link rel="stylesheet" href="/static/css/color-selector.css">
+  <link rel="icon" href="/static/img/icon-task-master.PNG">
+  <title>Task Master</title>
+</head>
+<body>
+  <header>
+    <h1 class="flex-content">
+      <a href="/">
+        <img src="/static/img/task-master-logo.PNG">
+      </a>
+      {{template "lists"}}
+      {{template "mypage" .}}
+    </h1>
+  </header>
+
+  <div class="wrapper">
+    {{template "content" .}}
+  </div>
+
+  <footer>
+    <p>&copy;Task Master</p>
+  </footer>
+  <script src="/static/js/jquery-3.6.0.min.js"></script>
+  <script src="/static/js/task-form.js"></script>
+  <script src="/static/js/index.js"></script>
+  <script src="/static/js/modal.js"></script>
+  <script src="/static/js/main-task.js"></script>
+  <script src="/static/js/ajax.js"></script>
+  <script src="/static/js/search-box.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
+{{end}}

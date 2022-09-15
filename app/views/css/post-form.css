@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+.post-form-content {
+  margin: 3% auto;
+}
+
+.post-form-title {
+  margin: 0;
+}
+
+.post-form {
+  padding: 3% 15%;
+}
+
+.post-form input {
+  width: 100%;
+  display: block;
+  margin: auto;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  padding: 1%;
+}
+
+.post-form span {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.post-form button {
+  background-color: rgb(255, 75, 75);
+  color: white;
+  padding: 1.9% 3%;
+  border: solid 2px rgb(255, 75, 75);
+  border-radius: 20px;
+  font-size: 1.1rem;
+  transition: ease 0.3s;
+}
+
+.post-form button:hover {
+  color: rgb(255, 75, 75);
+  background-color: white;
+}
