@@ -14,13 +14,14 @@ type Category struct {
 	Color     Color     `json:"color"`
 }
 
-func CreateCategory(name string, userId int) (err error) {
+func CreateCategory(name string, colorId int, userId int) (err error) {
 	cmd := `insert into categories (
 		name,
+		color_id,
 		user_id,
-		created_at) values (?, ?, ?)`
+		created_at) values (?, ?, ?, ?)`
 
-	_, err = Db.Exec(cmd, name, userId, time.Now())
+	_, err = Db.Exec(cmd, name, colorId, userId, time.Now())
 	if err != nil {
 		log.Println(err)
 	}
@@ -29,23 +30,27 @@ func CreateCategory(name string, userId int) (err error) {
 }
 
 func GetCategory(id int) (category Category, err error) {
-	cmd := `select id, name, user_id, created_at from categories where id = ?`
+	cmd := `select id, name, color_id, user_id, created_at from categories where id = ?`
 
 	err = Db.QueryRow(cmd, id).Scan(
 		&category.ID,
 		&category.Name,
+		&category.ColorID,
 		&category.UserID,
 		&category.CreatedAt)
 
+	color, _ := GetColor(category.ColorID)
+	category.Color = color
+
 	if err != nil {
-		log.Println(err)
+		// log.Println(err)
 	}
 
 	return category, err
 }
 
 func (u *User) GetCategoriesByUserID() (categories []Category, err error) {
-	cmd := `select id, name, user_id, created_at from categories where user_id = ?`
+	cmd := `select id, name, color_id, user_id, created_at from categories where user_id = ?`
 	rows, err := Db.Query(cmd, u.ID)
 	if err != nil {
 		log.Println(err)
@@ -56,12 +61,16 @@ func (u *User) GetCategoriesByUserID() (categories []Category, err error) {
 		err = rows.Scan(
 			&category.ID,
 			&category.Name,
+			&category.ColorID,
 			&category.UserID,
 			&category.CreatedAt)
 
 		if err != nil {
 			log.Println(err)
 		}
+
+		color, _ := GetColor(category.ColorID)
+		category.Color = color
 
 		categories = append(categories, category)
 	}
@@ -72,8 +81,8 @@ func (u *User) GetCategoriesByUserID() (categories []Category, err error) {
 }
 
 func (c *Category) UpdataCategory() (err error) {
-	cmd := `update categories set name = ? where id = ?`
-	_, _ = Db.Exec(cmd, c.Name, c.ID)
+	cmd := `update categories set name = ?, color_id = ? where id = ?`
+	_, _ = Db.Exec(cmd, c.Name, c.ColorID, c.ID)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -91,12 +100,30 @@ func (c *Category) DeleteCategory() (err error) {
 	return err
 }
 
-func (u *User) GetCategoryByName(name string) (category Category, err error) {
-	cmd := `select id, name, user_id, created_at from categories where user_id = ? and name = ?`
+func (u *User) GetCategoryByCategoryName(name string) (category Category, err error){
+	cmd := `select id, name, color_id, user_id, created_at from categories where user_id = ? and name = ?`
 
 	err = Db.QueryRow(cmd, u.ID, name).Scan(
 		&category.ID,
 		&category.Name,
+		&category.ColorID,
+		&category.UserID,
+		&category.CreatedAt)
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	return category, err
+}
+
+func (u *User) GetCategoryByName(name string, colorId int) (category Category, err error) {
+	cmd := `select id, name, color_id, user_id, created_at from categories where user_id = ? and name = ? and color_id = ?`
+
+	err = Db.QueryRow(cmd, u.ID, name, colorId).Scan(
+		&category.ID,
+		&category.Name,
+		&category.ColorID,
 		&category.UserID,
 		&category.CreatedAt)
 

@@ -131,3 +131,7 @@ footer p {
 .pointer {
   cursor: pointer;
 }
+
+.hidden, .hidden-status {
+  display: none;
+}

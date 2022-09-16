@@ -114,6 +114,10 @@ func init() {
 	// if err != nil {
 	// 	log.Println(err)
 	// }
+	// err = CreateColor("gray", "#969696")
+	// if err != nil {
+	// 	log.Println(err)
+	// }
 
 }
 

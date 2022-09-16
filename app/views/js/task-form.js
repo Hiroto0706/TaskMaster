@@ -1,10 +1,32 @@
 // ボタンアクションに関するjs
 $('.modal-content__form__update-btn').click(function() {
   $(this).parents('form').attr('action', $(this).data('action'));
+
+	// var category = $(this).siblings("select").val();
+	// console.log(category);
+	// $(this).siblings("[name='category']").val(category);
+
   $(this).parents('form').submit();
 });
 
 $('.modal-content__form__delete-btn').click(function() {
+  $(this).parents('form').attr('action', $(this).data('action'));
+  $(this).parents('form').submit();
+});
+
+$('.modalArea-edit__content .update-btn').click(function() {
+  $(this).parents('form').attr('action', $(this).data('action'));
+	
+	var post_category = $(this).siblings('input').val();
+	$("[name='category-name']").val(post_category);
+
+	var post_color = $(this).siblings(".flex-content").find(".selected-color").val();
+	$("[name='category-color']").val(post_color);
+
+  $(this).parents('form').submit();
+});
+
+$('.modalArea-edit__content .delete-btn').click(function() {
   $(this).parents('form').attr('action', $(this).data('action'));
   $(this).parents('form').submit();
 });
@@ -90,3 +112,97 @@ var contents_sum = $('.contents').children('.task-content');
 var sum = $(".contents").children(".task-content").children(".flex-content").find(".subtime-sum").text();
 
 
+// タスクの履歴のカテゴリーのカラーに関する処理
+$(function(){
+	var color = $(".category-color-span .hidden").text();
+	// console.log(color);
+
+	var color_data = color.split("/");
+	color_data.pop();
+	// console.log(color_data);
+
+	var id = [];
+	var status = [];
+	for(i = 0; i < color_data.length; i++){
+		var split_data = color_data[i].split(":");
+
+		id[i] = split_data[0];
+		status[i] = split_data[1];
+	}
+
+	// console.log(id, status);
+
+	for(i = 0; i < id.length; i++){
+		var target = ".task-color-" + id[i];
+		// console.log(target);
+
+		$(target).find(".color-span").css(
+			'background-color', status[i]
+		);
+
+		$(target).find(".category").css(
+			'color', status[i]
+		);
+	}
+});
+
+
+// タスクの履歴をクリックした時の処理
+$(function(){
+	$(".workspace__content li").click(function(){
+		console.log("clicked!");
+		var color = $(this).find(".hidden").text();
+		// console.log(color);
+
+		var color_data = color.replace("/", "");
+		// console.log(color_data);
+
+		var split_data = color_data.split(":");
+		// var id = split_data[0];
+		var status = split_data[1];
+
+    var background_color;
+    switch(status){
+      case "#DF1313":
+        background_color = "#F6BBBB";
+        break;
+      case "#9C169C":
+        background_color = "#F7AAF7";
+        break;
+      case "#1F80C6":
+        background_color = "#AADBFE";
+        break;
+      case "#12BEB2":
+        background_color = "#C7EAE7";
+        break;
+      case "#379137":
+        background_color = "#A6EBA6";
+        break;
+      case "#E1E12F":
+        background_color = "#FFFFDA";
+        break;
+      case "#784C29":
+        background_color = "#E5C5AC";
+        break;
+      case "#E9900A":
+        background_color = "#FFE8C9";
+            break;
+      case "#323232":
+        background_color = "#C5C5C5";
+        break;
+      default:
+        background_color = "#F5F5F5"
+        break;
+    }
+
+		$("#color-selector").css(
+			"background-color", status
+		);
+		$(".input-form__category").css(
+			"color", status
+		);
+		$(".input-form__category-div").css(
+			"background-color", background_color
+		);
+	});
+});

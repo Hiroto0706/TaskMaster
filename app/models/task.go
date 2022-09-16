@@ -129,6 +129,10 @@ func (t *Task) CalculateSub() (sub time.Duration) {
 	t2 := t.EndTime
 	sub = t2.Sub(t1)
 
+	IntSub := int(sub)
+
+	sub = time.Duration(IntSub)
+
 	return sub
 }
 

@@ -31,7 +31,7 @@ func session(w http.ResponseWriter, r *http.Request) (sess models.Session, err e
 	return sess, err
 }
 
-var validPath = regexp.MustCompile("^/index/(delete|update|mypage|stop)/([0-9]+)$")
+var validPath = regexp.MustCompile("^/index/(delete|update|mypage|stop|update-category|delete-category)/([0-9]+)$")
 
 func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -68,6 +68,8 @@ func StartMainServer() error {
 	http.HandleFunc("/index/delete/", parseURL(delete))
 	http.HandleFunc("/index/update/", parseURL(update))
 	http.HandleFunc("/index/create-category", createCategory)
+	http.HandleFunc("/index/update-category/", parseURL(updateCategory))
+	http.HandleFunc("/index/delete-category/", parseURL(deleteCategory))
 
 	http.HandleFunc("/calender", calender)
 	http.HandleFunc("/timeline", timeline)

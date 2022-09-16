@@ -13,3 +13,4 @@ $(function () {
     $(modalArea).fadeOut(100);
   });
 });
+

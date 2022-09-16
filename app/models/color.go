@@ -26,6 +26,22 @@ func CreateColor(name string, status string) (err error) {
 	return err
 }
 
+func GetColor(id int)(color Color, err error){
+	cmd := `select id, name, status, created_at from colors where id = ?`
+
+	err = Db.QueryRow(cmd, id).Scan(
+		&color.ID,
+		&color.Name,
+		&color.Status,
+		&color.CreatedAt)
+
+	if err != nil {
+		// log.Println(err)
+	}
+
+	return color, err
+}
+
 func GetColors() (colors []Color, err error){
 	cmd := `select id, name, status, created_at from colors`
 

@@ -39,7 +39,7 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   margin-right: 8px;
   vertical-align: middle;
 }
@@ -126,4 +126,11 @@
 }
 #color-selector__modal ul .purple span {
   background-color: rgb(156, 22, 156);
+}
+
+.cancel-btn, .cancel-btn-edit {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  cursor: pointer;
 }

@@ -18,10 +18,11 @@
                 <ul>
                   {{range .Tasks}}
                   <li class="pointer">
-                    <span class="task-title">{{.Title}}</span>
-                    <span class="category-color-span">
+                    <span class="task-title">{{.Title}}</span> 
+                    <span class="category-color-span task-color-{{.ID}}">
                       <span class="color-span"></span>
                       <span class="category">{{.Category.Name}}</span>
+                      <span class="hidden">{{.ID}}:{{.Category.Color.Status}}/</span>
                     </span>
                   </li>
                   {{end}}
@@ -34,22 +35,23 @@
 
         <div>
           <div class="input-form__category-div">
-            <span id="color-selector"></span>
+            <span id="color-selector">
+              <input name="color" class="hidden category-color" value="{{.Category.ColorID}}">
+              <span class="hidden color-status">{{.Category.Color.ID}}:{{.Category.Color.Name}}:{{.Category.Color.Status}}</span>
+            </span>
 
             <section class="workspace-color">
               <div class="bg-cancel cancel"></div>
               <div id="color-selector__modal">
                 <h3>COLOR</h3>
+                <div class="cancel-btn cancel">×</div>
                 <ul class="flex-content">
-                  <li class="red pointer"><span></span>red</li>
-                  <li class="purple pointer"><span></span>purple</li>
-                  <li class="blue pointer"><span></span>blue</li>
-                  <li class="bluegreen pointer"><span></span>bluegreen</li>
-                  <li class="green pointer"><span></span>green</li>
-                  <li class="yellow pointer"><span></span>yellow</li>
-                  <li class="brown pointer"><span></span>brown</li>
-                  <li class="orange pointer"><span></span>orange</li>
-                  <li class="black pointer"><span></span>black</li>
+                  {{range .Colors}}
+                  <li class="pointer {{.Name}}">
+                    <span></span>{{.Name}}
+                    <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
+                  </li>
+                  {{end}}
                 </ul>
               </div>
             </section>
@@ -61,20 +63,56 @@
             <div class="bg-cancel cancel"></div>
             <div class="workspace-category__content">
               <h3>CATEGORIES</h3>
-
+              <div class="cancel-btn cancel">×</div>
               <ul>
                 {{range .Categories}}
                 <li class="flex-content justify-content-space-between">
                   <span class="category pointer">
-                    <span class="color-span"></span>
-                    <span class="category-span">{{.Name}}</span>
-                    <!-- <input type="text" name="category" value="{{.Name}}"> -->
+                    <span class="color-span" id="color-span-{{.ID}}"></span>
+                    <span class="category-span" id="category-span-{{.ID}}">{{.Name}}</span>
                   </span>
-                  <div class="category__span">
-                    <span class="update update-span pointer">Edit</span>
-                    <!-- <span class="delete delete-span pointer">Delete</span> -->
+                  <div class="category__span" id="category__span-{{.ID}}">
+                    <span class="update update-span pointer">
+                      Edit
+                      <span class="hidden id">{{.ID}}</span>
+                      <span class="hidden color-data">{{.Color.ID}}:{{.Color.Name}}:{{.Color.Status}}</span>
+                      <span class="hidden color-id">{{.ID}}/</span>
+                    </span>
                   </div>
                 </li>
+
+                <section id="workspace-category__edit-{{.ID}}" class="workspace-category__edit hidden">
+                  <div id="modal-edit-bg-{{.ID}}" class="bg-black__edit cancel__edit"></div>
+                  <div class="modalArea-edit-{{.ID}} modalArea-edit__wrapper" >
+                    <div class="modalArea-edit__content">
+                      <h4>EDIT</h4>
+                      <div class="cancel-btn-edit">×</div>
+                      Category Name
+                      <input type="text" placeholder="Category Name" value="{{.Name}}" name="category-name">
+                      <br>
+                      Color
+                      <div class="flex-content justify-content-space-between">
+                        <span class="modalArea-edit__wrapper__span"></span>
+                        <select name="category-color" class="selected-color">
+                          <option value="10">none</option>
+                          <option value="1" selected>red</option>
+                          <option value="2">purple</option>
+                          <option value="3">blue</option>
+                          <option value="4">bluegreen</option>
+                          <option value="5">green</option>
+                          <option value="6">yellow</option>
+                          <option value="7">brown</option>
+                          <option value="8">orange</option>
+                          <option value="9">black</option>
+                        </select>
+                        <input type="text" placeholder="Color" value="{{.Color.Name}}" name="category-color-name" class="hidden">
+                      </div>
+                      <br>
+                      <button class="update-btn" type="submit" data-action="/index/update-category/{{.ID}}">Update</button>
+                      <button class="delete-btn" type="submit" data-action="/index/delete-category/{{.ID}}">Delete</button>
+                    </div>
+                  </div>
+                </section>
                 {{end}}
               </ul>
               
@@ -102,9 +140,10 @@
                   {{range .Tasks}}
                   <li class="pointer">
                     <span class="task-title">{{.Title}}</span> 
-                    <span class="category-color-span">
+                    <span class="category-color-span task-color-{{.ID}}">
                       <span class="color-span"></span>
                       <span class="category">{{.Category.Name}}</span>
+                      <span class="hidden">{{.ID}}:{{.Category.Color.Status}}/</span>
                     </span>
                   </li>
                   {{end}}
@@ -118,22 +157,22 @@
     
         <div>
           <div class="input-form__category-div">
-            <span id="color-selector"></span>
-
+            <span id="color-selector" class="">
+              <input name="color" class="hidden category-color" value="{{.Category.ColorID}}">
+              <span class="hidden color-status">{{.Category.Color.Status}}</span>
+            </span>
             <section class="workspace-color">
               <div class="bg-cancel cancel"></div>
               <div id="color-selector__modal">
                 <h3>COLOR</h3>
+                <div class="cancel-btn cancel">×</div>
                 <ul class="flex-content">
-                  <li class="red pointer"><span></span>red</li>
-                  <li class="purple pointer"><span></span>purple</li>
-                  <li class="blue pointer"><span></span>blue</li>
-                  <li class="bluegreen pointer"><span></span>bluegreen</li>
-                  <li class="green pointer"><span></span>green</li>
-                  <li class="yellow pointer"><span></span>yellow</li>
-                  <li class="brown pointer"><span></span>brown</li>
-                  <li class="orange pointer"><span></span>orange</li>
-                  <li class="black pointer"><span></span>black</li>
+                  {{range .Colors}}
+                  <li class="pointer {{.Name}}">
+                    <span></span>{{.Name}}
+                    <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
+                  </li>
+                  {{end}}
                 </ul>
               </div>
             </section>
@@ -145,21 +184,56 @@
             <div class="bg-cancel cancel"></div>
             <div class="workspace-category__content">
               <h3>CATEGORIES</h3>
+              <div class="cancel-btn cancel">×</div>
               <ul>
-
-
                 {{range .Categories}}
                 <li class="flex-content justify-content-space-between">
                   <span class="category pointer">
-                    <span class="color-span"></span>
-                    <span class="category-span">{{.Name}}</span>
-                    <!-- <input type="text" name="category" value="{{.Name}}"> -->
+                    <span class="color-span" id="color-span-{{.ID}}"></span>
+                    <span class="category-span" id="category-span-{{.ID}}">{{.Name}}</span>
                   </span>
-                  <div class="category__span">
-                    <span class="update update-span pointer">Edit</span>
-                    <!-- <span class="delete delete-span pointer">Delete</span> -->
+                  <div class="category__span" id="category__span-{{.ID}}">
+                    <span class="update update-span pointer">
+                      Edit
+                      <span class="hidden id">{{.ID}}</span>
+                      <span class="hidden color-data">{{.Color.ID}}:{{.Color.Name}}:{{.Color.Status}}</span>
+                      <span class="hidden color-id">{{.ID}}/</span>
+                    </span>
                   </div>
                 </li>
+
+                <section id="workspace-category__edit-{{.ID}}" class="workspace-category__edit hidden">
+                  <div id="modal-edit-bg-{{.ID}}" class="bg-black__edit cancel__edit"></div>
+                  <div class="modalArea-edit-{{.ID}} modalArea-edit__wrapper" >
+                    <div class="modalArea-edit__content">
+                      <h4>EDIT</h4>
+                      <div class="cancel-btn-edit">×</div>
+                      Category Name
+                      <input type="text" placeholder="Category Name" value="{{.Name}}" name="category-name">
+                      <br>
+                      Color
+                      <div class="flex-content justify-content-space-between">
+                        <span class="modalArea-edit__wrapper__span"></span>
+                        <select name="category-color" class="selected-color">
+                          <option value="10">none</option>
+                          <option value="1" selected>red</option>
+                          <option value="2">purple</option>
+                          <option value="3">blue</option>
+                          <option value="4">bluegreen</option>
+                          <option value="5">green</option>
+                          <option value="6">yellow</option>
+                          <option value="7">brown</option>
+                          <option value="8">orange</option>
+                          <option value="9">black</option>
+                        </select>
+                        <input type="text" placeholder="Color" value="{{.Color.Name}}" name="category-color-name" class="hidden">
+                      </div>
+                      <br>
+                      <button class="update-btn" type="submit" data-action="/index/update-category/{{.ID}}">Update</button>
+                      <button class="delete-btn" type="submit" data-action="/index/delete-category/{{.ID}}">Delete</button>
+                    </div>
+                  </div>
+                </section>
                 {{end}}
 
 
@@ -180,30 +254,19 @@
       <input type="text" name="time" class="time-content run-time" value="{{.StartTime.Hour}}:{{.StartTime.Minute}}:{{.StartTime.Second}}">
       <div class="run-time-date hidden">{{.StartTime.Year}}/{{.StartTime.Month}}/{{.StartTime.Day}}</div>
 
-
       {{else}}
-
-
       <input type="text" name="time" class="time-content" value="0:00:00">
       {{end}}
-
-
       <div class="button-div">
-
-
         {{if .Status}}
         <button type="submit" class="play-button stop" data-action="/index/stop/{{.ID}}">
           <img src="/static/img/stop-btn.PNG" class="toggle_img">
         </button>
-
-
         {{else}}
         <button type="submit" class="play-button play" data-action="/index/create">
           <img src="/static/img/play-btn.PNG" class="toggle_img">
         </button>
         {{end}}
-
-
       </div>
     </form>
   </div>
@@ -227,9 +290,11 @@
             <div>
               <span>{{.Title}}</span><br>
               {{if .Category.Name}}
-              <span class="task-content__category-span">{{.Category.Name}}</span>
+              <span class="task-content__category-span category-color-{{.ID}}">{{.Category.Name}}</span>
+              <div class="hidden-status">{{.ID}}:{{.Category.Color.Status}}:{{.Category.Name}}/</div>
               {{else}}
               <span class="task-content__category-span">カテゴリーなし</span>
+              <div class="hidden-status">{{.ID}}:#969696/</div>
               {{end}}
             </div>
             <span class="task-content__time">
@@ -250,7 +315,13 @@
                 Task
                 <input type="text" name="task" value="{{.Title}}" class="main-form">
                 Category
-                <input type="text" name="category" value="{{.Category.Name}}" class="main-form"><br>
+                <!-- <input type="text" name="category" value="{{.Category.Name}}" class="main-form"> -->
+                <select class="main-select" name="category">
+                  {{range .Categories}}
+                  <option value="{{.Name}}">{{.Name}}</option>
+                  {{end}}
+                </select>
+                <br>
                 <h3>Durations</h3>
                 <div class="modal-content__form__time-section">
                   <input type="text" name="duration" value="{{.SubTime}}" class="time-form duration">

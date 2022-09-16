@@ -7,3 +7,8 @@ $(".toggle_img").on("click", function () {
     $(this).toggleClass("change");
   }
 });
+
+// タスク編集のカテゴリーセレクトに関する処理
+$(function() {
+  
+});
