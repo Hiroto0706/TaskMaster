@@ -12,7 +12,7 @@ $('.create-task-form .stop').click(function() {
 
 $(function (){
   var page = $("#this-page").text();
-  console.log(page);
+  // console.log(page);
 
   switch(page){
     case "list":
@@ -56,7 +56,7 @@ $(function(){
     );
   }
 
-  console.log(id, status, name);
+  // console.log(id, status, name);
   for(i = 0; i < id.length; i++){
     var target = "#modalArea-" + id[i];
     $(target).find("select").val(name[i]);

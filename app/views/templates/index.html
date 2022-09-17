@@ -22,7 +22,7 @@
                     <span class="category-color-span task-color-{{.ID}}">
                       <span class="color-span"></span>
                       <span class="category">{{.Category.Name}}</span>
-                      <span class="hidden">{{.ID}}:{{.Category.Color.Status}}/</span>
+                      <span class="hidden">{{.ID}}:{{.Category.Color.Status}}:{{.Category.Color.ID}}/</span>
                     </span>
                   </li>
                   {{end}}
@@ -62,7 +62,7 @@
           <section class="workspace-category">
             <div class="bg-cancel cancel"></div>
             <div class="workspace-category__content">
-              <h3>CATEGORIES</h3>
+              <h3>CATEGORIES<span class="gray-color">※MAX15</span></h3>
               <div class="cancel-btn cancel">×</div>
               <ul>
                 {{range .Categories}}
@@ -143,7 +143,7 @@
                     <span class="category-color-span task-color-{{.ID}}">
                       <span class="color-span"></span>
                       <span class="category">{{.Category.Name}}</span>
-                      <span class="hidden">{{.ID}}:{{.Category.Color.Status}}/</span>
+                      <span class="hidden">{{.ID}}:{{.Category.Color.Status}}:{{.Category.Color.ID}}/</span>
                     </span>
                   </li>
                   {{end}}
@@ -183,7 +183,7 @@
           <section class="workspace-category">
             <div class="bg-cancel cancel"></div>
             <div class="workspace-category__content">
-              <h3>CATEGORIES</h3>
+              <h3>CATEGORIES<span class="gray-color">※MAX15</span></h3>
               <div class="cancel-btn cancel">×</div>
               <ul>
                 {{range .Categories}}

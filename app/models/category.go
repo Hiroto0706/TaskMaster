@@ -100,7 +100,7 @@ func (c *Category) DeleteCategory() (err error) {
 	return err
 }
 
-func (u *User) GetCategoryByCategoryName(name string) (category Category, err error){
+func (u *User) GetCategoryByCategoryName(name string) (category Category, err error) {
 	cmd := `select id, name, color_id, user_id, created_at from categories where user_id = ? and name = ?`
 
 	err = Db.QueryRow(cmd, u.ID, name).Scan(
@@ -172,4 +172,17 @@ func CheckCategory(userId int, name string) (valid bool, err error) {
 	// log.Println("true!!")
 
 	return valid, err
+}
+
+func (u *User) CategorySum() (sum int) {
+	cmd := `select count(id) from categories where user_id = ?`
+
+	err = Db.QueryRow(cmd, u.ID).Scan(
+		&sum)
+
+	if err != nil {
+		// log.Println(err)
+	}
+
+	return sum
 }

@@ -370,7 +370,7 @@ input.time-content[type="text"]:focus{
 }
 
 .workspace__content {
-  width: 50%;
+  width: 40%;
   height: auto;
   position: absolute;
     top: 0;

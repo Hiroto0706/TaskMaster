@@ -10,8 +10,6 @@ import (
 	"time"
 )
 
-// const layout = "2022-09-01 12:00:00.000000+09:00"
-
 func top(w http.ResponseWriter, r *http.Request) {
 	_, err := session(w, r)
 	if err != nil {
@@ -47,6 +45,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 			tasks[i].Category = category
 		}
 
+		// duration start
 		var dates []string
 		var duration models.Duration
 		for i, _ := range tasks {
@@ -89,6 +88,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 			durations = append(durations, duration)
 		}
+		// duration end
 
 		categories, err := user.GetCategoriesByUserID()
 		if err != nil {
@@ -182,10 +182,15 @@ func create(w http.ResponseWriter, r *http.Request) {
 		valid, _ := models.CheckCategory(user.ID, category.Name)
 		// log.Println(valid)
 
-		if valid == false {
-			err = models.CreateCategory(category.Name, category.ColorID, user.ID)
-			if err != nil {
-				log.Println(err)
+		if valid == false && category.Name != "" {
+			categorySum := user.CategorySum()
+			log.Println(categorySum)
+
+			if categorySum < 15 {
+				err = models.CreateCategory(category.Name, category.ColorID, user.ID)
+				if err != nil {
+					log.Println(err)
+				}
 			}
 		}
 
@@ -194,11 +199,17 @@ func create(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 		}
 
+		category.ColorID = color
+
+		err = category.UpdataCategory()
+		if err != nil {
+			log.Println(err)
+		}
+
 		// log.Println(category)
 
 		err = models.CreateTask(task.Title, user.ID, category.ID)
 		if err != nil {
-			log.Println("err!create!")
 			log.Println(err)
 		}
 
@@ -280,7 +291,7 @@ func update(w http.ResponseWriter, r *http.Request, id int) {
 		task.EndTime = endTime
 		task.Status = false
 
-		log.Println(task.Category.Name)
+		// log.Println(task.Category.Name)
 
 		// fmt.Println(task.Title, task.Category.Name)
 
@@ -393,9 +404,14 @@ func createCategory(w http.ResponseWriter, r *http.Request) {
 
 		// log.Println(categoryColor)
 
-		err = models.CreateCategory(categoryName, categoryColor, user.ID)
-		if err != nil {
-			log.Println(err)
+		categorySum := user.CategorySum()
+		// log.Println(categorySum)
+
+		if categorySum < 15 {
+			err = models.CreateCategory(categoryName, categoryColor, user.ID)
+			if err != nil {
+				log.Println(err)
+			}
 		}
 
 		http.Redirect(w, r, "/", 302)

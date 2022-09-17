@@ -165,10 +165,17 @@ $(function(){
     // console.log(title);
 
     var category = $(this).find(".category-color-span .category").text();
-    // console.log(category);
+    console.log(category);
+
+    var color_data = $(this).find(".category-color-span .hidden").text();
+    var color = color_data.split(":");
+    var color_id = color[2].replace("/", "");
+    console.log(color);
+    console.log(color_id);
 
     $(".input-form__task").val(title);
     $(".input-form__category").val(category);
+    $("#color-selector .category-color").val(color_id);
 
     $(".workspace-color").fadeOut(100);
     $(".workspace-category").fadeOut(100);
@@ -239,6 +246,9 @@ $(function(){
     $('.input-form__category-div').css(
       'background-color', background_color
     );
+
+    $('[name="color"]').val(color_id);
+    console.log($('[name="color"]').val());
   });
 });
 

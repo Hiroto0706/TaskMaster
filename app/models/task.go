@@ -27,9 +27,17 @@ type Task struct {
 }
 
 type Duration struct {
-	Date  string `json:"date"`
-	Sum   string `json:"sum"`
-	Tasks []Task `json:"tasks"`
+	Date       string `json:"date"`
+	Sum        string `json:"sum"`
+	Tasks      []Task `json:"tasks"`
+	ParentTask []ParentTask
+}
+
+type ParentTask struct {
+	Title    string
+	category string
+	sum      string
+	Tasks    []Task
 }
 
 func CreateTask(title string, userId int, categoryId int) (err error) {
