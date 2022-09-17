@@ -610,3 +610,70 @@ input.time-content[type="text"]:focus{
   background-color: white;
   color: rgb(255, 75, 75);
 }
+
+
+/* parentlistに関するCSS */
+.parent-li {
+  border-bottom: solid 1px black;
+  padding: 2% 2%;
+  display: flex;
+
+}
+
+.parent-li .len {
+  position: relative;
+  width: 50px;
+  height: auto;
+  text-align: center;
+  vertical-align:middle;
+  transition: ease 0.3s;
+}
+
+.parent-li:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.parent-li .len p {
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+
+  width: 20px;
+  height: auto;
+  border: solid 1px rgb(150, 150, 150);
+  padding: 5px;
+  border-radius: 12px;
+  background-color: white;
+  margin: 0;
+}
+
+.parent-li .flex-content {
+  width: calc(100% - 30px);
+}
+
+.parent-title {
+  width: 50%;
+  margin-left: 8px;
+}
+
+.parent-list .parent-title span {
+  display: inline;
+  padding: 0.5% 2%;
+  vertical-align: middle;
+}
+
+.parent-list .parent-title .background {
+  background-color: #969696;
+  color: white;
+  border-radius: 20px;
+}
+
+.hidden-list {
+  display: none;
+}
+
+.background-gray {
+  background-color: rgb(245, 245, 245);
+}

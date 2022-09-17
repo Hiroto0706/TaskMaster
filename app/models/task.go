@@ -27,17 +27,22 @@ type Task struct {
 }
 
 type Duration struct {
-	Date       string `json:"date"`
-	Sum        string `json:"sum"`
-	Tasks      []Task `json:"tasks"`
-	ParentTask []ParentTask
+	Date        string `json:"date"`
+	Sum         string `json:"sum"`
+	Tasks       []Task `json:"tasks"`
+	ParentTasks []ParentTask
 }
 
 type ParentTask struct {
-	Title    string
-	category string
-	sum      string
-	Tasks    []Task
+	ID           int
+	Title        string
+	CategoryName string
+	CategoryID   int
+	SumTime      string
+	Len          int
+	Tasks        []Task
+	Category     Category
+	Color        Color
 }
 
 func CreateTask(title string, userId int, categoryId int) (err error) {
@@ -70,6 +75,8 @@ func GetTask(id int) (task Task, err error) {
 		&task.StartTime,
 		&task.EndTime,
 		&task.CreatedAt)
+
+	task.SubTime = task.CalculateSub()
 
 	return task, err
 }
@@ -140,6 +147,7 @@ func (t *Task) CalculateSub() (sub time.Duration) {
 	IntSub := int(sub)
 
 	sub = time.Duration(IntSub)
+	// log.Println(sub)
 
 	return sub
 }
@@ -147,6 +155,23 @@ func (t *Task) CalculateSub() (sub time.Duration) {
 func Include(slice []string, target string) bool {
 	for _, str := range slice {
 		if str == target {
+			return true
+		}
+	}
+	return false
+}
+
+func IncludeParentTasForTitle(parentTasks []ParentTask, target string) bool {
+	for _, tar := range parentTasks {
+		if tar.Title == target {
+			return true
+		}
+	}
+	return false
+}
+func IncludeParentTasForCategory(parentTasks []ParentTask, target string) bool {
+	for _, tar := range parentTasks {
+		if tar.CategoryName == target {
 			return true
 		}
 	}
@@ -177,4 +202,48 @@ func (u *User) GetTaskByStatusTrue() (task Task, err error) {
 		&task.CreatedAt)
 
 	return task, err
+}
+
+func (u *User) GetTasksByName(title string, category string, date string, categoryID int) (tasks []Task, err error) {
+	cmd := `select id, title, user_id, category_id, status, start_time, end_time, created_at from tasks where user_id = ? and title = ? and category_id = ? order by start_time desc`
+	rows, err := Db.Query(cmd, u.ID, title, categoryID)
+	if err != nil {
+		log.Println(err)
+	}
+
+	for rows.Next() {
+		var task Task
+		err = rows.Scan(
+			&task.ID,
+			&task.Title,
+			&task.UserID,
+			&task.CategoryID,
+			&task.Status,
+			&task.StartTime,
+			&task.EndTime,
+			&task.CreatedAt)
+
+		if err != nil {
+			log.Println(err)
+		}
+
+		targetDate := GetTargetDate(task.StartTime)
+		if targetDate == date {
+			task.SubTime = task.CalculateSub()
+
+			category, err := GetCategory(categoryID)
+			if err != nil {
+				log.Println(err)
+			}
+			task.Category = category
+
+			categories, _ := u.GetCategoriesByUserID()
+			task.Categories = categories
+
+			tasks = append(tasks, task)
+		}
+	}
+	rows.Close()
+
+	return tasks, err
 }

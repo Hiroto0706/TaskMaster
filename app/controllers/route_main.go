@@ -73,6 +73,24 @@ func index(w http.ResponseWriter, r *http.Request) {
 					duration.Tasks = append(duration.Tasks, tasks[j])
 
 					sum += tasks[j].SubTime.Minutes()
+
+					parentTask := models.ParentTask{
+						ID:           tasks[j].ID,
+						Title:        tasks[j].Title,
+						CategoryName: tasks[j].Category.Name,
+						CategoryID:   tasks[j].CategoryID,
+					}
+
+					if len(duration.ParentTasks) == 0 {
+						duration.ParentTasks = append(duration.ParentTasks, parentTask)
+					} else {
+						valid1 := models.IncludeParentTasForTitle(duration.ParentTasks, parentTask.Title)
+						valid2 := models.IncludeParentTasForCategory(duration.ParentTasks, parentTask.CategoryName)
+
+						if valid1 == false || valid2 == false {
+							duration.ParentTasks = append(duration.ParentTasks, parentTask)
+						}
+					}
 				}
 			}
 
@@ -86,7 +104,46 @@ func index(w http.ResponseWriter, r *http.Request) {
 				duration.Sum = fmt.Sprintf("%s h %s min", hour, min)
 			}
 
+			for j, _ := range duration.ParentTasks {
+				// log.Println(duration.ParentTasks[j])
+				tasks, _ := user.GetTasksByName(duration.ParentTasks[j].Title, duration.ParentTasks[j].CategoryName, dates[i], duration.ParentTasks[j].CategoryID)
+
+				category, _ := models.GetCategory(duration.ParentTasks[j].CategoryID)
+				color, _ := models.GetColor(category.ColorID)
+
+				duration.ParentTasks[j].Len = len(tasks)
+				duration.ParentTasks[j].Tasks = tasks
+				duration.ParentTasks[j].Category = category
+				duration.ParentTasks[j].Color = color
+
+				sum = 0
+				for k, _ := range duration.ParentTasks[j].Tasks {
+					tasks[k].SubTime = tasks[k].CalculateSub()
+					sum += tasks[k].SubTime.Seconds()
+				}
+
+				hour := fmt.Sprintf("%d", int(sum)/60/60)
+
+				var min string
+				if ((int(sum) / 60) % 60) < 10 {
+					min = fmt.Sprintf("0%d", (int(sum)/60)%60)
+				} else {
+					min = fmt.Sprintf("%d", (int(sum)/60)%60)
+				}
+
+				var sec string
+				if (int(sum) % 60) < 10 {
+					sec = fmt.Sprintf("0%d", int(sum)%60)
+				} else {
+					sec = fmt.Sprintf("%d", int(sum)%60)
+				}
+
+				duration.ParentTasks[j].SumTime = fmt.Sprintf("%s:%s:%s", hour, min, sec)
+			}
+
 			durations = append(durations, duration)
+
+			// log.Println(duration.ParentTasks, duration.Date)
 		}
 		// duration end
 
@@ -104,6 +161,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 				category, _ := models.GetCategory(task.CategoryID)
 
 				if len(tasksForSearch) == 0 {
+					task.SubTime = task.CalculateSub()
 					tasksForSearch = append(tasksForSearch, task)
 				} else {
 					var flag = false
@@ -117,6 +175,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 					}
 
 					if flag == false {
+						task.SubTime = task.CalculateSub()
 						tasksForSearch = append(tasksForSearch, task)
 					}
 				}
