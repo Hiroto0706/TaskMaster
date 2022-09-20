@@ -85,6 +85,7 @@ for(i = 0; i < lis.length; i++){
 	}
 }
 
+
 // subtimeに関するjs
 for(i = 0; i < lis.length; i++){
 	var id = $(lis[i]).text();
@@ -195,10 +196,30 @@ $(function(){
       case "#323232":
         background_color = "#C5C5C5";
         break;
+      case "#60253F":
+        background_color = "#BB9EAA";
+        break;
+      case "#202F55":
+        background_color = "#848EA6";
+        break;
+      case "#576128":
+        background_color = "#ABAE99";
+        break;
+      case "#FF9898":
+        background_color = "#FFD9D9";
+        break;
+      case "#A0D8EF":
+        background_color = "#E8F8FF";
+        break;
+      case "#90EE90":
+        background_color = "#E5FFE5";
+        break;
       default:
         background_color = "#F5F5F5"
         break;
     }
+
+		// console.log(background_color);
 
 		$("#color-selector").css(
 			"background-color", status

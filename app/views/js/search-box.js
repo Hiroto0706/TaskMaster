@@ -91,6 +91,21 @@ $(function(){
       case '10':
         $(".selected-color option[value='10']").prop('selected', true);
         break;
+      case '11':
+        $(".selected-color option[value='11']").prop('selected', true);
+        break;
+      case '12':
+        $(".selected-color option[value='12']").prop('selected', true);
+        break;
+      case '13':
+        $(".selected-color option[value='13']").prop('selected', true);
+        break;
+      case '14':
+        $(".selected-color option[value='14']").prop('selected', true);
+        break;
+      case '15':
+        $(".selected-color option[value='15']").prop('selected', true);
+        break;
     }
   });
 
@@ -150,6 +165,36 @@ $(function(){
         break;
       case '10':
         $('.modalArea-edit__wrapper__span').css(
+          "background-color", "#60253F"
+        );
+        break;
+      case '11':
+        $('.modalArea-edit__wrapper__span').css(
+          "background-color", "#202F55"
+        );
+        break;
+      case '12':
+        $('.modalArea-edit__wrapper__span').css(
+          "background-color", "#576128"
+        );
+        break;
+      case '13':
+        $('.modalArea-edit__wrapper__span').css(
+          "background-color", "#FF9898"
+        );
+        break;
+      case '14':
+        $('.modalArea-edit__wrapper__span').css(
+          "background-color", "#A0D8EF"
+        );
+        break;
+      case '15':
+        $('.modalArea-edit__wrapper__span').css(
+          "background-color", "#90EE90"
+        );
+        break;
+      case '16':
+        $('.modalArea-edit__wrapper__span').css(
           "background-color", "#969696"
         );
         break;
@@ -157,6 +202,8 @@ $(function(){
   });
 });
 
+
+// タスクの履歴に関する処理
 $(function(){
   $(".workspace__content li").click(function(){
     // console.log("li clicked!");
@@ -185,7 +232,7 @@ $(function(){
 
   // category一覧の中の要素をクリックした時の処理
   $(".workspace-category__content li .category").click(function(){
-    console.log("category span clicked!");
+    // console.log("category span clicked!");
     var category = $(this).find(".category-span").text();
     // console.log(category);
 
@@ -231,6 +278,24 @@ $(function(){
             break;
       case "black":
         background_color = "#C5C5C5";
+        break;
+      case "bordo":
+        background_color = "#BB9EAA";
+        break;
+      case "navy":
+        background_color = "#848EA6";
+        break;
+      case "olive":
+        background_color = "#ABAE99";
+        break;
+      case "pink":
+        background_color = "#FFD9D9";
+        break;
+      case "skyblue":
+        background_color = "#E8F8FF";
+        break;
+      case "lightgreen":
+        background_color = "#E5FFE5";
         break;
       default:
         background_color = "#F5F5F5"

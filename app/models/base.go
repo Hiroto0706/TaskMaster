@@ -118,7 +118,27 @@ func init() {
 	// if err != nil {
 	// 	log.Println(err)
 	// }
-	// err = CreateColor("", "#969696")
+	// err = CreateColor("bordo", "#60253F")
+	// if err != nil {
+	// 	log.Println(err)
+	// }
+	// err = CreateColor("navy", "#202F55")
+	// if err != nil {
+	// 	log.Println(err)
+	// }
+	// err = CreateColor("olive", "#576128")
+	// if err != nil {
+	// 	log.Println(err)
+	// }
+	// err = CreateColor("pink", "#FF9898")
+	// if err != nil {
+	// 	log.Println(err)
+	// }
+	// err = CreateColor("skyblue", "#A0D8EF")
+	// if err != nil {
+	// 	log.Println(err)
+	// }
+	// err = CreateColor("lightgreen", "#90EE90")
 	// if err != nil {
 	// 	log.Println(err)
 	// }

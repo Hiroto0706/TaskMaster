@@ -51,6 +51,7 @@
                     <span></span>{{.Name}}
                     <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
                   </li>
+                  <div class="color-status">{{.ID}}:{{.Status}}/</div>
                   {{end}}
                 </ul>
               </div>
@@ -94,7 +95,7 @@
                       <div class="flex-content justify-content-space-between">
                         <span class="modalArea-edit__wrapper__span"></span>
                         <select name="category-color" class="selected-color">
-                          <option value="10">none</option>
+                          <option value="16">none</option>
                           <option value="1" selected>red</option>
                           <option value="2">purple</option>
                           <option value="3">blue</option>
@@ -104,6 +105,12 @@
                           <option value="7">brown</option>
                           <option value="8">orange</option>
                           <option value="9">black</option>
+                          <option value="10">bordo</option>
+                          <option value="11">navy</option>
+                          <option value="12">olive</option>
+                          <option value="13">pink</option>
+                          <option value="14">skyblue</option>
+                          <option value="15">lightgreen</option>
                         </select>
                         <input type="text" placeholder="Color" value="{{.Color.Name}}" name="category-color-name" class="hidden">
                       </div>
@@ -134,7 +141,6 @@
             <div class="workspace__content">
               <h3>TASKS</h3>
               <div class="scroll-content">
-
                 <ul>
                   {{range .Tasks}}
                   <li class="pointer">
@@ -147,7 +153,6 @@
                   </li>
                   {{end}}
                 </ul>
-
               </div>
             </div>
           </section>
@@ -159,6 +164,7 @@
               <input name="color" class="hidden category-color" value="{{.Category.ColorID}}">
               <span class="hidden color-status">{{.Category.Color.Status}}</span>
             </span>
+
             <section class="workspace-color">
               <div class="bg-cancel cancel"></div>
               <div id="color-selector__modal">
@@ -167,9 +173,10 @@
                 <ul class="flex-content">
                   {{range .Colors}}
                   <li class="pointer {{.Name}}">
-                    <span></span>{{.Name}}
+                    <span class="color-selector__span-{{.ID}}"></span>{{.Name}}
                     <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
                   </li>
+                  <div class="color-status">{{.ID}}:{{.Status}}/</div>
                   {{end}}
                 </ul>
               </div>
@@ -213,7 +220,7 @@
                       <div class="flex-content justify-content-space-between">
                         <span class="modalArea-edit__wrapper__span"></span>
                         <select name="category-color" class="selected-color">
-                          <option value="10">none</option>
+                          <option value="16">none</option>
                           <option value="1" selected>red</option>
                           <option value="2">purple</option>
                           <option value="3">blue</option>
@@ -223,6 +230,12 @@
                           <option value="7">brown</option>
                           <option value="8">orange</option>
                           <option value="9">black</option>
+                          <option value="10">bordo</option>
+                          <option value="11">navy</option>
+                          <option value="12">olive</option>
+                          <option value="13">pink</option>
+                          <option value="14">skyblue</option>
+                          <option value="15">lightgreen</option>
                         </select>
                         <input type="text" placeholder="Color" value="{{.Color.Name}}" name="category-color-name" class="hidden">
                       </div>

@@ -184,7 +184,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 		allColors, _ := models.GetColors()
 		var colors []models.Color
-		for i := 0; i < 9; i++ {
+		for i := 0; i < 15; i++ {
 			colors = append(colors, allColors[i])
 		}
 
@@ -224,7 +224,7 @@ func create(w http.ResponseWriter, r *http.Request) {
 		// log.Println(colorStr)
 		var color int
 		if colorStr == "0" {
-			color = 10
+			color = 16
 		} else {
 			color, _ = strconv.Atoi(colorStr)
 		}
@@ -477,7 +477,7 @@ func createCategory(w http.ResponseWriter, r *http.Request) {
 		categoryName := r.PostFormValue("new-category")
 		// log.Println(categoryName)
 
-		categoryColor := 10
+		categoryColor := 16
 
 		// log.Println(categoryColor)
 
