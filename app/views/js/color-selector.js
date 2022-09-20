@@ -94,7 +94,7 @@ $(function() {
         break;
     }
 
-    console.log(color_id, color_name, color_status);
+    // console.log(color_id, color_name, color_status);
 
     $("#color-selector").css(
       'background-color',color_status
@@ -107,7 +107,7 @@ $(function() {
     );
 
     $('#color-selector .category-color').val(color_id);
-    console.log($('#color-selector input').val());
+    // console.log($('#color-selector input').val());
   });
 
 });

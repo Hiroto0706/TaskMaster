@@ -348,7 +348,6 @@ func update(w http.ResponseWriter, r *http.Request, id int) {
 		task.Category.Name = r.PostFormValue("category")
 		task.StartTime = startTime
 		task.EndTime = endTime
-		task.Status = false
 
 		// log.Println(task.Category.Name)
 
@@ -370,9 +369,19 @@ func update(w http.ResponseWriter, r *http.Request, id int) {
 		// category.Name = task.Category.Name
 		task.CategoryID = category.ID
 
-		err = task.UpdataTask()
-		if err != nil {
-			log.Println(err)
+		// log.Println(task.Status)
+
+		if task.Status == true {
+			err = task.UpdataTask()
+			if err != nil {
+				log.Println(err)
+			}
+		}else {
+			task.Status = false
+			err = task.UpdataTask()
+			if err != nil {
+				log.Println(err)
+			}
 		}
 
 		// if category.ID == 0 {
@@ -408,6 +417,7 @@ func stop(w http.ResponseWriter, r *http.Request, id int) {
 		}
 
 		nums := strings.Split(r.PostFormValue("time"), ":")
+		// log.Println(nums)
 
 		hour, _ := strconv.Atoi(nums[0])
 		min, _ := strconv.Atoi(nums[1])
@@ -415,9 +425,16 @@ func stop(w http.ResponseWriter, r *http.Request, id int) {
 
 		task, _ := models.GetTask(id)
 		task.Title = r.PostFormValue("task")
-		task.EndTime = task.EndTime.Add(time.Hour * time.Duration(hour))
-		task.EndTime = task.EndTime.Add(time.Minute * time.Duration(min))
-		task.EndTime = task.EndTime.Add(time.Second * time.Duration(sec))
+		addTime := task.StartTime.Add(time.Hour * time.Duration(hour))
+		addTime = addTime.Add(time.Minute * time.Duration(min))
+		addTime = addTime.Add(time.Second * time.Duration(sec))
+		// task.EndTime = task.StartTime.Add(time.Hour * time.Duration(hour))
+		// task.EndTime = task.StartTime.Add(time.Minute * time.Duration(min))
+		task.EndTime = addTime
+
+		// log.Println(addTime)
+		// log.Printf("start = %s", task.StartTime)
+		// log.Printf("end = %s", task.EndTime)
 
 		color, _ := strconv.Atoi(r.PostFormValue("color"))
 
@@ -426,6 +443,7 @@ func stop(w http.ResponseWriter, r *http.Request, id int) {
 		category.Name = r.PostFormValue("category")
 		task.Category = category
 		task.Category.Name = category.Name
+		task.Status = false
 
 		err = category.UpdataCategory()
 		if err != nil {

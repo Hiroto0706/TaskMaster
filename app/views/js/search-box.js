@@ -39,10 +39,10 @@ $(function(){
 
   // categoryに関するjs
   $(".update-span").click(function(){
-    console.log("update!");
+    // console.log("update!");
 
     var id = $(this).find(".id").text();
-    console.log(id);
+    // console.log(id);
 
     var target = "#workspace-category__edit-" + id;
     $(target).fadeIn(100);
@@ -52,7 +52,7 @@ $(function(){
     var color_id = color[0];
     var color_name = color[1];
     var color_status = color[2];
-    console.log(color);
+    // console.log(color);
 
     $('.modalArea-edit__wrapper__span').css(
       "background-color", color_status
@@ -165,13 +165,13 @@ $(function(){
     // console.log(title);
 
     var category = $(this).find(".category-color-span .category").text();
-    console.log(category);
+    // console.log(category);
 
     var color_data = $(this).find(".category-color-span .hidden").text();
     var color = color_data.split(":");
     var color_id = color[2].replace("/", "");
-    console.log(color);
-    console.log(color_id);
+    // console.log(color);
+    // console.log(color_id);
 
     $(".input-form__task").val(title);
     $(".input-form__category").val(category);
@@ -187,7 +187,7 @@ $(function(){
   $(".workspace-category__content li .category").click(function(){
     console.log("category span clicked!");
     var category = $(this).find(".category-span").text();
-    console.log(category);
+    // console.log(category);
 
     $(".input-form__category").val(category);
 
@@ -201,7 +201,7 @@ $(function(){
     var color_name = color[1];
     var color_status = color[2];
 
-    console.log(color);
+    // console.log(color);
 
     var background_color;
     switch(color_name){
@@ -248,18 +248,24 @@ $(function(){
     );
 
     $('[name="color"]').val(color_id);
-    console.log($('[name="color"]').val());
+    // console.log($('[name="color"]').val());
   });
 });
 
 $(function(){
   $(".create-category").click(function(){
-    var category = $(this).siblings("input").val();
+    if(!confirm('このカテゴリーを新たに作成してもよろしいですか？')){
+      return false;
+    }else {
+      var category = $(this).siblings("input").val();
+  
+      var test = $(this).parents('form').attr('action', "/index/create-category");
+      $(this).parents('form').attr('action', "/index/create-category");
+  
+      $(this).parents('form').submit();
+    }
 
-    var test = $(this).parents('form').attr('action', "/index/create-category");
-    $(this).parents('form').attr('action', "/index/create-category");
-
-    $(this).parents('form').submit();
+    return false;
   });
 });
 
@@ -292,3 +298,54 @@ $(function(){
 });
 
 
+
+// // タスクを矢印で操作できるようにする機能
+// $(function(){
+//   $(window).on("keydown", function(e) {
+//     if(e.keyCode === 40) {
+//           // 「↓」キーが押されました
+//           console.log("40");
+//           focus_next();
+//     }else if(e.keyCode === 38) {
+//           // 「↑」キーが押されました
+//           console.log("38");
+//           focus_prev();
+//     }
+//   });
+// });
+
+// /**
+//  * フォーカスを前に移動する
+//  */
+//  function focus_prev() {
+//   // 現在のフォーカスを取得
+//   var currentFocusIndex = $('.task-li').index($(':focus'));
+//   console.log(currentFocusIndex);
+
+//   if(currentFocusIndex > -1) {
+//       for (var i = 0; i < $('.task-li').length; i++) {
+//           if(i === currentFocusIndex && i > 0) {
+//               $('.task-li').eq(i - 1).focus();
+//           }
+//       }
+//   }
+// }
+
+// /**
+// * フォーカスを次に移動する
+// */
+// function focus_next() {
+//   // 現在のフォーカスを取得
+//   var currentFocusIndex = $('.task-li').index($(':focus'));
+//   console.log(currentFocusIndex);
+
+//   if(currentFocusIndex > -1) {
+//       for (var i = 0; i < $('.task-li').length; i++) {
+//           if(i === currentFocusIndex && i < $('.task-li').length - 1) {
+//               $('.task-li').eq(i + 1).focus();
+//           }
+//       }
+//   } else {
+//       $('.task-li').eq(0).focus();
+//   }
+// }

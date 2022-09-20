@@ -1,17 +1,16 @@
 // ボタンアクションに関するjs
 $('.modal-content__form__update-btn').click(function() {
   $(this).parents('form').attr('action', $(this).data('action'));
-
-	// var category = $(this).siblings("select").val();
-	// console.log(category);
-	// $(this).siblings("[name='category']").val(category);
-
   $(this).parents('form').submit();
 });
 
 $('.modal-content__form__delete-btn').click(function() {
-  $(this).parents('form').attr('action', $(this).data('action'));
-  $(this).parents('form').submit();
+	if(!confirm('このタスクを削除してもよろしいですか？')){
+		return false;
+	}else {
+		$(this).parents('form').attr('action', $(this).data('action'));
+		$(this).parents('form').submit();
+	}
 });
 
 $('.modalArea-edit__content .update-btn').click(function() {
@@ -27,8 +26,12 @@ $('.modalArea-edit__content .update-btn').click(function() {
 });
 
 $('.modalArea-edit__content .delete-btn').click(function() {
-  $(this).parents('form').attr('action', $(this).data('action'));
-  $(this).parents('form').submit();
+	if(!confirm('このカテゴリーを削除してもよろしいですか？')){
+		return false;
+	}else {
+		$(this).parents('form').attr('action', $(this).data('action'));
+		$(this).parents('form').submit();
+	}
 });
 
 
@@ -112,6 +115,7 @@ var contents_sum = $('.contents').children('.task-content');
 var sum = $(".contents").children(".task-content").children(".flex-content").find(".subtime-sum").text();
 
 
+
 // タスクの履歴のカテゴリーのカラーに関する処理
 $(function(){
 	var color = $(".category-color-span .hidden").text();
@@ -145,6 +149,7 @@ $(function(){
 		);
 	}
 });
+
 
 
 // タスクの履歴をクリックした時の処理

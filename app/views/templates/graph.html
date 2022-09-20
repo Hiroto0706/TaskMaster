@@ -1,0 +1,282 @@
+{{define "content"}}
+<div class="create-task">
+  <form class="create-task-form" action="" method="POST" role="form">
+    <div class="input-form">
+
+
+      {{if .Status}}
+      <div class="task-input">
+        <input type="text" placeholder="Task" name="task" class="input-form__task" value="{{.Title}}" autocomplete="off">
+
+        <section class="workspace">
+          <div class="bg-black cancel"></div>
+          <div class="workspace__content">
+            <h3>TASKS</h3>
+            <div class="scroll-content">
+
+              <ul id="tasks-ul">
+                {{range .Tasks}}
+                <li class="pointer task-li">
+                  <span class="task-title">{{.Title}}</span> 
+                  <span class="category-color-span task-color-{{.ID}}">
+                    <span class="color-span"></span>
+                    <span class="category">{{.Category.Name}}</span>
+                    <span class="hidden">{{.ID}}:{{.Category.Color.Status}}:{{.Category.Color.ID}}/</span>
+                  </span>
+                </li>
+                {{end}}
+              </ul>
+
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div>
+        <div class="input-form__category-div">
+          <span id="color-selector">
+            <input name="color" class="hidden category-color" value="{{.Category.ColorID}}">
+            <span class="hidden color-status">{{.Category.Color.ID}}:{{.Category.Color.Name}}:{{.Category.Color.Status}}</span>
+          </span>
+
+          <section class="workspace-color">
+            <div class="bg-cancel cancel"></div>
+            <div id="color-selector__modal">
+              <h3>COLOR</h3>
+              <div class="cancel-btn cancel">×</div>
+              <ul class="flex-content">
+                {{range .Colors}}
+                <li class="pointer {{.Name}}">
+                  <span></span>{{.Name}}
+                  <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
+                </li>
+                {{end}}
+              </ul>
+            </div>
+          </section>
+
+          <input type="text" placeholder="Category" name="category" class="input-form__category" value="{{.Category.Name}}" autocomplete="off">
+        </div>
+
+        <section class="workspace-category">
+          <div class="bg-cancel cancel"></div>
+          <div class="workspace-category__content">
+            <h3>CATEGORIES<span class="gray-color">※MAX15</span></h3>
+            <div class="cancel-btn cancel">×</div>
+            <ul>
+              {{range .Categories}}
+              <li class="flex-content justify-content-space-between">
+                <span class="category pointer">
+                  <span class="color-span" id="color-span-{{.ID}}"></span>
+                  <span class="category-span" id="category-span-{{.ID}}">{{.Name}}</span>
+                </span>
+                <div class="category__span" id="category__span-{{.ID}}">
+                  <span class="update update-span pointer">
+                    Edit
+                    <span class="hidden id">{{.ID}}</span>
+                    <span class="hidden color-data">{{.Color.ID}}:{{.Color.Name}}:{{.Color.Status}}</span>
+                    <span class="hidden color-id">{{.ID}}/</span>
+                  </span>
+                </div>
+              </li>
+
+              <section id="workspace-category__edit-{{.ID}}" class="workspace-category__edit hidden">
+                <div id="modal-edit-bg-{{.ID}}" class="bg-black__edit cancel__edit"></div>
+                <div class="modalArea-edit-{{.ID}} modalArea-edit__wrapper" >
+                  <div class="modalArea-edit__content">
+                    <h4>EDIT</h4>
+                    <div class="cancel-btn-edit">×</div>
+                    Category Name
+                    <input type="text" placeholder="Category Name" value="{{.Name}}" name="category-name">
+                    <br>
+                    Color
+                    <div class="flex-content justify-content-space-between">
+                      <span class="modalArea-edit__wrapper__span"></span>
+                      <select name="category-color" class="selected-color">
+                        <option value="10">none</option>
+                        <option value="1" selected>red</option>
+                        <option value="2">purple</option>
+                        <option value="3">blue</option>
+                        <option value="4">bluegreen</option>
+                        <option value="5">green</option>
+                        <option value="6">yellow</option>
+                        <option value="7">brown</option>
+                        <option value="8">orange</option>
+                        <option value="9">black</option>
+                      </select>
+                      <input type="text" placeholder="Color" value="{{.Color.Name}}" name="category-color-name" class="hidden">
+                    </div>
+                    <br>
+                    <button class="update-btn" type="submit" data-action="/index/update-category/{{.ID}}">Update</button>
+                    <button class="delete-btn" type="submit" data-action="/index/delete-category/{{.ID}}">Delete</button>
+                  </div>
+                </div>
+              </section>
+              {{end}}
+            </ul>
+            
+            <div>
+              <input type="text" placeholder="New Category" value="" name="new-category">
+              <button class="create-category" type="submit">+ CREATE CATEGORY</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      {{else}}
+      <div class="task-input">
+        <input type="text" placeholder="Task" name="task" class="input-form__task" value="" autocomplete="off">
+
+        <section class="workspace">
+          <div class="bg-black cancel"></div>
+          <div class="workspace__content">
+            <h3>TASKS</h3>
+            <div class="scroll-content">
+
+              <ul class="task-ul">
+                {{range .Tasks}}
+                <li class="pointer task-li">
+                  <span class="task-title">{{.Title}}</span> 
+                  <span class="category-color-span task-color-{{.ID}}">
+                    <span class="color-span"></span>
+                    <span class="category">{{.Category.Name}}</span>
+                    <span class="hidden">{{.ID}}:{{.Category.Color.Status}}:{{.Category.Color.ID}}/</span>
+                  </span>
+                </li>
+                {{end}}
+              </ul>
+
+            </div>
+          </div>
+        </section>
+      </div>
+  
+      <div>
+        <div class="input-form__category-div">
+          <span id="color-selector" class="">
+            <input name="color" class="hidden category-color" value="{{.Category.ColorID}}">
+            <span class="hidden color-status">{{.Category.Color.Status}}</span>
+          </span>
+          <section class="workspace-color">
+            <div class="bg-cancel cancel"></div>
+            <div id="color-selector__modal">
+              <h3>COLOR</h3>
+              <div class="cancel-btn cancel">×</div>
+              <ul class="flex-content">
+                {{range .Colors}}
+                <li class="pointer {{.Name}}">
+                  <span></span>{{.Name}}
+                  <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
+                </li>
+                {{end}}
+              </ul>
+            </div>
+          </section>
+
+          <input type="text" placeholder="Category" name="category" class="input-form__category" value="{{.Category.Name}}" autocomplete="off">
+        </div>
+
+        <section class="workspace-category">
+          <div class="bg-cancel cancel"></div>
+          <div class="workspace-category__content">
+            <h3>CATEGORIES<span class="gray-color">※MAX15</span></h3>
+            <div class="cancel-btn cancel">×</div>
+            <ul>
+              {{range .Categories}}
+              <li class="flex-content justify-content-space-between">
+                <span class="category pointer">
+                  <span class="color-span" id="color-span-{{.ID}}"></span>
+                  <span class="category-span" id="category-span-{{.ID}}">{{.Name}}</span>
+                </span>
+                <div class="category__span" id="category__span-{{.ID}}">
+                  <span class="update update-span pointer">
+                    Edit
+                    <span class="hidden id">{{.ID}}</span>
+                    <span class="hidden color-data">{{.Color.ID}}:{{.Color.Name}}:{{.Color.Status}}</span>
+                    <span class="hidden color-id">{{.ID}}/</span>
+                  </span>
+                </div>
+              </li>
+
+              <section id="workspace-category__edit-{{.ID}}" class="workspace-category__edit hidden">
+                <div id="modal-edit-bg-{{.ID}}" class="bg-black__edit cancel__edit"></div>
+                <div class="modalArea-edit-{{.ID}} modalArea-edit__wrapper" >
+                  <div class="modalArea-edit__content">
+                    <h4>EDIT</h4>
+                    <div class="cancel-btn-edit">×</div>
+                    Category Name
+                    <input type="text" placeholder="Category Name" value="{{.Name}}" name="category-name">
+                    <br>
+                    Color
+                    <div class="flex-content justify-content-space-between">
+                      <span class="modalArea-edit__wrapper__span"></span>
+                      <select name="category-color" class="selected-color">
+                        <option value="10">none</option>
+                        <option value="1" selected>red</option>
+                        <option value="2">purple</option>
+                        <option value="3">blue</option>
+                        <option value="4">bluegreen</option>
+                        <option value="5">green</option>
+                        <option value="6">yellow</option>
+                        <option value="7">brown</option>
+                        <option value="8">orange</option>
+                        <option value="9">black</option>
+                      </select>
+                      <input type="text" placeholder="Color" value="{{.Color.Name}}" name="category-color-name" class="hidden">
+                    </div>
+                    <br>
+                    <button class="update-btn" type="submit" data-action="/index/update-category/{{.ID}}">Update</button>
+                    <button class="delete-btn" type="submit" data-action="/index/delete-category/{{.ID}}">Delete</button>
+                  </div>
+                </div>
+              </section>
+              {{end}}
+
+
+            </ul>
+            <div>
+              <input type="text" placeholder="New Category" value="" name="new-category">
+              <button class="create-category">+ CREATE CATEGORY</button>
+            </div>
+          </div>
+        </section>
+      </div>
+      {{end}}
+
+
+    </div>
+
+    {{if .Status}}
+    <input type="text" name="time" class="time-content run-time" value="{{.StartTime.Hour}}:{{.StartTime.Minute}}:{{.StartTime.Second}}">
+    <div class="run-time-date hidden">{{.StartTime.Year}}/{{.StartTime.Month}}/{{.StartTime.Day}}</div>
+
+    {{else}}
+    <input type="text" name="time" class="time-content" value="0:00:00">
+    {{end}}
+    <div class="button-div">
+      {{if .Status}}
+      <button type="submit" class="play-button stop" data-action="/index/stop/{{.ID}}">
+        <img src="/static/img/stop-btn.PNG" class="toggle_img">
+      </button>
+      {{else}}
+      <button type="submit" class="play-button play" data-action="/index/create">
+        <img src="/static/img/play-btn.PNG" class="toggle_img">
+      </button>
+      {{end}}
+    </div>
+  </form>
+</div>
+
+<div class="contents">
+  <div class=graph-content>
+    <h1>グラフ機能は開発中です</h1>
+
+    <div class="graphDiv">
+      <canvas id="myBarChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div id="this-page" class="hidden">graph</div>
+{{end}}

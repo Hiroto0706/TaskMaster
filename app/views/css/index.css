@@ -265,6 +265,7 @@ input.time-content[type="text"]:focus{
 .modal-content__form__time-section div{
   text-align: center;
   justify-content: center;
+  width: 45%;
 }
 
 .modal-content__form__time-section .duration {
@@ -284,6 +285,7 @@ input.time-content[type="text"]:focus{
   display: block;
   width: 35%;
   padding: 1% 2%;
+  text-align: center;
 }
 
 .modal-content__form__delete-btn {

@@ -73,5 +73,6 @@ func StartMainServer() error {
 
 	http.HandleFunc("/calender", calender)
 	http.HandleFunc("/timeline", timeline)
+	http.HandleFunc("/graph", graph)
 	return http.ListenAndServe(":"+config.Config.Port, nil)
 }

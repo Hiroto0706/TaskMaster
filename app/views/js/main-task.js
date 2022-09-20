@@ -24,6 +24,9 @@ $(function (){
     case "calender":
       $(".calender-color").css("color", "rgb(31, 154, 198)");
       break;
+    case "graph":
+      $(".graph-color").css("color", "rgb(31, 154, 198)");
+      break;
   }
 });
 

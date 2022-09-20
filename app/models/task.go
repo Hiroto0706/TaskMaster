@@ -114,8 +114,9 @@ func (u *User) GetTasksByUser() (tasks []Task, err error) {
 }
 
 func (t *Task) UpdataTask() (err error) {
+	// log.Println(t.Status)
 	cmd := `update tasks set title = ?, category_id = ?, status = ?, start_time = ?, end_time = ? where id = ?`
-	_, _ = Db.Exec(cmd, t.Title, t.CategoryID, 0, t.StartTime, t.EndTime, t.ID)
+	_, _ = Db.Exec(cmd, t.Title, t.CategoryID, t.Status, t.StartTime, t.EndTime, t.ID)
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+.calender-content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5% 2%;
+  box-shadow: 15px 15px 0px 0 rgb(0 0 0);
+}
