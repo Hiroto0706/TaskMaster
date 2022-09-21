@@ -30,5 +30,8 @@ $(function() {
     $(target).css(
       'background-color', status
     );
+    $(target).parents('li').css(
+      'color', status
+    );
   }
 });

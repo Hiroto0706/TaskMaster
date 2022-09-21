@@ -192,14 +192,14 @@ $(function(){
         break;
       case "#E9900A":
         background_color = "#FFE8C9";
-            break;
+        break;
       case "#323232":
         background_color = "#C5C5C5";
         break;
-      case "#60253F":
+      case "#713851":
         background_color = "#BB9EAA";
         break;
-      case "#202F55":
+      case "#2E3E65":
         background_color = "#848EA6";
         break;
       case "#576128":

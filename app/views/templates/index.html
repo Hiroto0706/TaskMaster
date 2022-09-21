@@ -48,7 +48,8 @@
                 <ul class="flex-content">
                   {{range .Colors}}
                   <li class="pointer {{.Name}}">
-                    <span></span>{{.Name}}
+                    <span class="color-selector__span-{{.ID}}"></span>
+                    {{.Name}}
                     <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
                   </li>
                   <div class="color-status">{{.ID}}:{{.Status}}/</div>
@@ -173,7 +174,8 @@
                 <ul class="flex-content">
                   {{range .Colors}}
                   <li class="pointer {{.Name}}">
-                    <span class="color-selector__span-{{.ID}}"></span>{{.Name}}
+                    <span class="color-selector__span-{{.ID}}"></span>
+                    {{.Name}}
                     <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
                   </li>
                   <div class="color-status">{{.ID}}:{{.Status}}/</div>
@@ -257,8 +259,6 @@
           </section>
         </div>
         {{end}}
-
-
       </div>
 
       {{if .Status}}
