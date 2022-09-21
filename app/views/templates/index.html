@@ -8,29 +8,7 @@
         {{if .Status}}
         <div class="task-input">
           <input type="text" placeholder="Task" name="task" class="input-form__task" value="{{.Title}}" autocomplete="off">
-  
-          <section class="workspace">
-            <div class="bg-black cancel"></div>
-            <div class="workspace__content">
-              <h3>TASKS</h3>
-              <div class="scroll-content">
-
-                <ul>
-                  {{range .Tasks}}
-                  <li class="pointer">
-                    <span class="task-title">{{.Title}}</span> 
-                    <span class="category-color-span task-color-{{.ID}}">
-                      <span class="color-span"></span>
-                      <span class="category">{{.Category.Name}}</span>
-                      <span class="hidden">{{.ID}}:{{.Category.Color.Status}}:{{.Category.Color.ID}}/</span>
-                    </span>
-                  </li>
-                  {{end}}
-                </ul>
-
-              </div>
-            </div>
-          </section>
+          {{template "workspace_section" .}}
         </div>
 
         <div>
@@ -40,224 +18,35 @@
               <span class="hidden color-status">{{.Category.Color.ID}}:{{.Category.Color.Name}}:{{.Category.Color.Status}}</span>
             </span>
 
-            <section class="workspace-color">
-              <div class="bg-cancel cancel"></div>
-              <div id="color-selector__modal">
-                <h3>COLOR</h3>
-                <div class="cancel-btn cancel">×</div>
-                <ul class="flex-content">
-                  {{range .Colors}}
-                  <li class="pointer {{.Name}}">
-                    <span class="color-selector__span-{{.ID}}"></span>
-                    {{.Name}}
-                    <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
-                  </li>
-                  <div class="color-status">{{.ID}}:{{.Status}}/</div>
-                  {{end}}
-                </ul>
-              </div>
-            </section>
+            {{template "workspace_color" .}}
 
             <input type="text" placeholder="Category" name="category" class="input-form__category" value="{{.Category.Name}}" autocomplete="off">
           </div>
 
-          <section class="workspace-category">
-            <div class="bg-cancel cancel"></div>
-            <div class="workspace-category__content">
-              <h3>CATEGORIES<span class="gray-color">※MAX15</span></h3>
-              <div class="cancel-btn cancel">×</div>
-              <ul>
-                {{range .Categories}}
-                <li class="flex-content justify-content-space-between">
-                  <span class="category pointer">
-                    <span class="color-span" id="color-span-{{.ID}}"></span>
-                    <span class="category-span" id="category-span-{{.ID}}">{{.Name}}</span>
-                  </span>
-                  <div class="category__span" id="category__span-{{.ID}}">
-                    <span class="update update-span pointer">
-                      Edit
-                      <span class="hidden id">{{.ID}}</span>
-                      <span class="hidden color-data">{{.Color.ID}}:{{.Color.Name}}:{{.Color.Status}}</span>
-                      <span class="hidden color-id">{{.ID}}/</span>
-                    </span>
-                  </div>
-                </li>
-
-                <section id="workspace-category__edit-{{.ID}}" class="workspace-category__edit hidden">
-                  <div id="modal-edit-bg-{{.ID}}" class="bg-black__edit cancel__edit"></div>
-                  <div class="modalArea-edit-{{.ID}} modalArea-edit__wrapper" >
-                    <div class="modalArea-edit__content">
-                      <h4>EDIT</h4>
-                      <div class="cancel-btn-edit">×</div>
-                      Category Name
-                      <input type="text" placeholder="Category Name" value="{{.Name}}" name="category-name">
-                      <br>
-                      Color
-                      <div class="flex-content justify-content-space-between">
-                        <span class="modalArea-edit__wrapper__span"></span>
-                        <select name="category-color" class="selected-color">
-                          <option value="16">none</option>
-                          <option value="1" selected>red</option>
-                          <option value="2">purple</option>
-                          <option value="3">blue</option>
-                          <option value="4">bluegreen</option>
-                          <option value="5">green</option>
-                          <option value="6">yellow</option>
-                          <option value="7">brown</option>
-                          <option value="8">orange</option>
-                          <option value="9">black</option>
-                          <option value="10">bordo</option>
-                          <option value="11">navy</option>
-                          <option value="12">olive</option>
-                          <option value="13">pink</option>
-                          <option value="14">skyblue</option>
-                          <option value="15">lightgreen</option>
-                        </select>
-                        <input type="text" placeholder="Color" value="{{.Color.Name}}" name="category-color-name" class="hidden">
-                      </div>
-                      <br>
-                      <button class="update-btn" type="submit" data-action="/index/update-category/{{.ID}}">Update</button>
-                      <button class="delete-btn" type="submit" data-action="/index/delete-category/{{.ID}}">Delete</button>
-                    </div>
-                  </div>
-                </section>
-                {{end}}
-              </ul>
-              
-              <div>
-                <input type="text" placeholder="New Category" value="" name="new-category">
-                <button class="create-category" type="submit">+ CREATE CATEGORY</button>
-              </div>
-            </div>
-          </section>
+          {{template "workspace_category" .}}
         </div>
-
 
         {{else}}
         <div class="task-input">
           <input type="text" placeholder="Task" name="task" class="input-form__task" value="" autocomplete="off">
-  
-          <section class="workspace">
-            <div class="bg-black cancel"></div>
-            <div class="workspace__content">
-              <h3>TASKS</h3>
-              <div class="scroll-content">
-                <ul>
-                  {{range .Tasks}}
-                  <li class="pointer">
-                    <span class="task-title">{{.Title}}</span> 
-                    <span class="category-color-span task-color-{{.ID}}">
-                      <span class="color-span"></span>
-                      <span class="category">{{.Category.Name}}</span>
-                      <span class="hidden">{{.ID}}:{{.Category.Color.Status}}:{{.Category.Color.ID}}/</span>
-                    </span>
-                  </li>
-                  {{end}}
-                </ul>
-              </div>
-            </div>
-          </section>
+          {{template "workspace_section" .}}
         </div>
     
         <div>
           <div class="input-form__category-div">
-            <span id="color-selector" class="">
+            <span id="color-selector">
               <input name="color" class="hidden category-color" value="{{.Category.ColorID}}">
               <span class="hidden color-status">{{.Category.Color.Status}}</span>
             </span>
-
-            <section class="workspace-color">
-              <div class="bg-cancel cancel"></div>
-              <div id="color-selector__modal">
-                <h3>COLOR</h3>
-                <div class="cancel-btn cancel">×</div>
-                <ul class="flex-content">
-                  {{range .Colors}}
-                  <li class="pointer {{.Name}}">
-                    <span class="color-selector__span-{{.ID}}"></span>
-                    {{.Name}}
-                    <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
-                  </li>
-                  <div class="color-status">{{.ID}}:{{.Status}}/</div>
-                  {{end}}
-                </ul>
-              </div>
-            </section>
+            
+            {{template "workspace_color" .}}
 
             <input type="text" placeholder="Category" name="category" class="input-form__category" value="{{.Category.Name}}" autocomplete="off">
           </div>
 
-          <section class="workspace-category">
-            <div class="bg-cancel cancel"></div>
-            <div class="workspace-category__content">
-              <h3>CATEGORIES<span class="gray-color">※MAX15</span></h3>
-              <div class="cancel-btn cancel">×</div>
-              <ul>
-                {{range .Categories}}
-                <li class="flex-content justify-content-space-between">
-                  <span class="category pointer">
-                    <span class="color-span" id="color-span-{{.ID}}"></span>
-                    <span class="category-span" id="category-span-{{.ID}}">{{.Name}}</span>
-                  </span>
-                  <div class="category__span" id="category__span-{{.ID}}">
-                    <span class="update update-span pointer">
-                      Edit
-                      <span class="hidden id">{{.ID}}</span>
-                      <span class="hidden color-data">{{.Color.ID}}:{{.Color.Name}}:{{.Color.Status}}</span>
-                      <span class="hidden color-id">{{.ID}}/</span>
-                    </span>
-                  </div>
-                </li>
-
-                <section id="workspace-category__edit-{{.ID}}" class="workspace-category__edit hidden">
-                  <div id="modal-edit-bg-{{.ID}}" class="bg-black__edit cancel__edit"></div>
-                  <div class="modalArea-edit-{{.ID}} modalArea-edit__wrapper" >
-                    <div class="modalArea-edit__content">
-                      <h4>EDIT</h4>
-                      <div class="cancel-btn-edit">×</div>
-                      Category Name
-                      <input type="text" placeholder="Category Name" value="{{.Name}}" name="category-name">
-                      <br>
-                      Color
-                      <div class="flex-content justify-content-space-between">
-                        <span class="modalArea-edit__wrapper__span"></span>
-                        <select name="category-color" class="selected-color">
-                          <option value="16">none</option>
-                          <option value="1" selected>red</option>
-                          <option value="2">purple</option>
-                          <option value="3">blue</option>
-                          <option value="4">bluegreen</option>
-                          <option value="5">green</option>
-                          <option value="6">yellow</option>
-                          <option value="7">brown</option>
-                          <option value="8">orange</option>
-                          <option value="9">black</option>
-                          <option value="10">bordo</option>
-                          <option value="11">navy</option>
-                          <option value="12">olive</option>
-                          <option value="13">pink</option>
-                          <option value="14">skyblue</option>
-                          <option value="15">lightgreen</option>
-                        </select>
-                        <input type="text" placeholder="Color" value="{{.Color.Name}}" name="category-color-name" class="hidden">
-                      </div>
-                      <br>
-                      <button class="update-btn" type="submit" data-action="/index/update-category/{{.ID}}">Update</button>
-                      <button class="delete-btn" type="submit" data-action="/index/delete-category/{{.ID}}">Delete</button>
-                    </div>
-                  </div>
-                </section>
-                {{end}}
-
-
-              </ul>
-              <div>
-                <input type="text" placeholder="New Category" value="" name="new-category">
-                <button class="create-category">+ CREATE CATEGORY</button>
-              </div>
-            </div>
-          </section>
+          {{template "workspace_category" .}}
         </div>
+
         {{end}}
       </div>
 
@@ -313,7 +102,6 @@
           {{range .Tasks}}
           <a id="openModal" class="task-a">
             <div class="hidden">{{.ID}}</div>
-
             <li class="background-gray">
               <div>
                 <span>{{.Title}}</span><br>
@@ -331,57 +119,7 @@
 
             </li>
           </a>
-          <section id="modalArea-{{.ID}}" class="modalArea">
-            <div id="modalBg-{{.ID}}" class="modalBg cancel">
-              <div class="hidden">{{.ID}}</div>
-            </div>
-            <div class="modalWrapper">
-              <div class="modalContents">
-                <form class="modal-content__form" role="form" action="" method="POST">
-                  <h3>Details</h3>
-                  Task
-                  <input type="text" name="task" value="{{.Title}}" class="main-form">
-                  Category
-                  <select class="main-select" name="category">
-                    {{range .Categories}}
-                    <option value="{{.Name}}">{{.Name}}</option>
-                    {{end}}
-                  </select>
-                  <br>
-                  <h3>Durations</h3>
-                  <div class="modal-content__form__time-section">
-                    <input type="text" name="duration" value="{{.SubTime}}" class="time-form duration">
-                    <div class="flex-content justify-content-center">
-                      <input type="text" name="start-time-hour" value="{{.StartTime.Hour}}" class="time-form time">
-                      :
-                      <input type="text" name="start-time-minute" value="{{.StartTime.Minute}}" class="time-form time">
-                    </div>
-                    <span>→</span>
-                    <div class="flex-content justify-content-center">
-                      <input type="text" name="end-time-hour" value="{{.EndTime.Hour}}" class="time-form time">
-                      :
-                      <input type="text" name="end-time-minute" value="{{.EndTime.Minute}}" class="time-form time">
-                    </div>
-                  </div>
-                  <br>
-                  <h3>Date</h3>
-                  <div class="modal-content__form__date-section">
-                    <input type="text" value="{{.StartTime.Year}}" name="year">
-                    /
-                    <input type="text" value="{{.StartTime.Month}}" class="modal-content__form__date-section__month-{{.ID}}" id="month-val" name="month">
-                    /
-                    <input type="text" value="{{.StartTime.Day}}" name="day">
-                  </div>
-                  <button type="submit" class="modal-content__form__update-btn" data-action="/index/update/{{.ID}}">Update</button>
-                  <button type="submit" class="modal-content__form__delete-btn" data-action="/index/delete/{{.ID}}">Delete</button>
-                </form>
-              </div>
-              <div id="closeModal-{{.ID}}" class="closeModal cancel">
-                ×
-                <div class="hidden">{{.ID}}</div>
-              </div>
-            </div>
-          </section>
+          {{template "workspace_task" .}}
           {{end}}
           </div>
         </div>
@@ -409,57 +147,7 @@
   
             </li>
           </a>
-          <section id="modalArea-{{.ID}}" class="modalArea">
-            <div id="modalBg-{{.ID}}" class="modalBg cancel">
-              <div class="hidden">{{.ID}}</div>
-            </div>
-            <div class="modalWrapper">
-              <div class="modalContents">
-                <form class="modal-content__form" role="form" action="" method="POST">
-                  <h3>Details</h3>
-                  Task
-                  <input type="text" name="task" value="{{.Title}}" class="main-form">
-                  Category
-                  <select class="main-select" name="category">
-                    {{range .Categories}}
-                    <option value="{{.Name}}">{{.Name}}</option>
-                    {{end}}
-                  </select>
-                  <br>
-                  <h3>Durations</h3>
-                  <div class="modal-content__form__time-section">
-                    <input type="text" name="duration" value="{{.SubTime}}" class="time-form duration">
-                    <div class="flex-content justify-content-center">
-                      <input type="text" name="start-time-hour" value="{{.StartTime.Hour}}" class="time-form time">
-                      :
-                      <input type="text" name="start-time-minute" value="{{.StartTime.Minute}}" class="time-form time">
-                    </div>
-                    <span>→</span>
-                    <div class="flex-content justify-content-center">
-                      <input type="text" name="end-time-hour" value="{{.EndTime.Hour}}" class="time-form time">
-                      :
-                      <input type="text" name="end-time-minute" value="{{.EndTime.Minute}}" class="time-form time">
-                    </div>
-                  </div>
-                  <br>
-                  <h3>Date</h3>
-                  <div class="modal-content__form__date-section">
-                    <input type="text" value="{{.StartTime.Year}}" name="year">
-                    /
-                    <input type="text" value="{{.StartTime.Month}}" class="modal-content__form__date-section__month-{{.ID}}" id="month-val" name="month">
-                    /
-                    <input type="text" value="{{.StartTime.Day}}" name="day">
-                  </div>
-                  <button type="submit" class="modal-content__form__update-btn" data-action="/index/update/{{.ID}}">Update</button>
-                  <button type="submit" class="modal-content__form__delete-btn" data-action="/index/delete/{{.ID}}">Delete</button>
-                </form>
-              </div>
-              <div id="closeModal-{{.ID}}" class="closeModal cancel">
-                ×
-                <div class="hidden">{{.ID}}</div>
-              </div>
-            </div>
-          </section>
+          {{template "workspace_task" .}}
           {{end}}
         {{end}}
       {{end}}

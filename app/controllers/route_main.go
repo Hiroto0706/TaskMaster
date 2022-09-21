@@ -196,7 +196,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		task.Category = category
 		task.Colors = colors
 
-		generateHTML(w, task, "layout", "index", "mypage_btn_public", "lists_public")
+		generateHTML(w, task, "layout", "index", "mypage_btn_public", "lists_public", "workspace_section", "workspace_color", "workspace_category", "workspace_task")
 	}
 }
 

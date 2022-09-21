@@ -1,0 +1,53 @@
+{{define "workspace_task"}}
+<section id="modalArea-{{.ID}}" class="modalArea">
+  <div id="modalBg-{{.ID}}" class="modalBg cancel">
+    <div class="hidden">{{.ID}}</div>
+  </div>
+  <div class="modalWrapper">
+    <div class="modalContents">
+      <form class="modal-content__form" role="form" action="" method="POST">
+        <h3>Details</h3>
+        Task
+        <input type="text" name="task" value="{{.Title}}" class="main-form">
+        Category
+        <select class="main-select" name="category">
+          {{range .Categories}}
+          <option value="{{.Name}}">{{.Name}}</option>
+          {{end}}
+        </select>
+        <br>
+        <h3>Durations</h3>
+        <div class="modal-content__form__time-section">
+          <input type="text" name="duration" value="{{.SubTime}}" class="time-form duration">
+          <div class="flex-content justify-content-center">
+            <input type="text" name="start-time-hour" value="{{.StartTime.Hour}}" class="time-form time">
+            :
+            <input type="text" name="start-time-minute" value="{{.StartTime.Minute}}" class="time-form time">
+          </div>
+          <span>→</span>
+          <div class="flex-content justify-content-center">
+            <input type="text" name="end-time-hour" value="{{.EndTime.Hour}}" class="time-form time">
+            :
+            <input type="text" name="end-time-minute" value="{{.EndTime.Minute}}" class="time-form time">
+          </div>
+        </div>
+        <br>
+        <h3>Date</h3>
+        <div class="modal-content__form__date-section">
+          <input type="text" value="{{.StartTime.Year}}" name="year">
+          /
+          <input type="text" value="{{.StartTime.Month}}" class="modal-content__form__date-section__month-{{.ID}}" id="month-val" name="month">
+          /
+          <input type="text" value="{{.StartTime.Day}}" name="day">
+        </div>
+        <button type="submit" class="modal-content__form__update-btn" data-action="/index/update/{{.ID}}">Update</button>
+        <button type="submit" class="modal-content__form__delete-btn" data-action="/index/delete/{{.ID}}">Delete</button>
+      </form>
+    </div>
+    <div id="closeModal-{{.ID}}" class="closeModal cancel">
+      ×
+      <div class="hidden">{{.ID}}</div>
+    </div>
+  </div>
+</section>
+{{end}}

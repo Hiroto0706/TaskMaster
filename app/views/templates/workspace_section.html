@@ -1,0 +1,22 @@
+{{define "workspace_section"}}
+<section class="workspace">
+  <div class="bg-black cancel"></div>
+  <div class="workspace__content">
+    <h3>TASKS</h3>
+    <div class="scroll-content">
+      <ul>
+        {{range .Tasks}}
+        <li class="pointer">
+          <span class="task-title">{{.Title}}</span> 
+          <span class="category-color-span task-color-{{.ID}}">
+            <span class="color-span"></span>
+            <span class="category">{{.Category.Name}}</span>
+            <span class="hidden">{{.ID}}:{{.Category.Color.Status}}:{{.Category.Color.ID}}/</span>
+          </span>
+        </li>
+        {{end}}
+      </ul>
+    </div>
+  </div>
+</section>
+{{end}}

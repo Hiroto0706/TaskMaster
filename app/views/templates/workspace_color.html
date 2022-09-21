@@ -1,0 +1,19 @@
+{{define "workspace_color"}}
+<section class="workspace-color">
+  <div class="bg-cancel cancel"></div>
+  <div id="color-selector__modal">
+    <h3>COLOR</h3>
+    <div class="cancel-btn cancel">×</div>
+    <ul class="flex-content">
+      {{range .Colors}}
+      <li class="pointer {{.Name}}">
+        <span class="color-selector__span-{{.ID}}"></span>
+        {{.Name}}
+        <div class="hidden">{{.ID}}:{{.Name}}:{{.Status}}</div>
+      </li>
+      <div class="color-status">{{.ID}}:{{.Status}}/</div>
+      {{end}}
+    </ul>
+  </div>
+</section>
+{{end}}
