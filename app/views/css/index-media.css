@@ -1,0 +1,13 @@
+@media screen and (max-width: 760px) {
+  .contents {
+    margin-top: 40px;
+  }
+
+  .task-content {
+    box-shadow: 8px 10px 0px 0 rgb(0, 0, 0);
+  }
+
+  footer {
+    background-color: rgb(182, 217, 217);
+  }
+}

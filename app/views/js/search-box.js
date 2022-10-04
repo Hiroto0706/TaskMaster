@@ -20,12 +20,17 @@ $(function(){
     $(".workspace-color").fadeOut(100);
     $(".workspace-category").fadeOut(100);
 
+    // var inputFormTaskShow = true;
+    // console.log(inputFormTaskShow);
+
     $(".workspace").fadeIn(100);
   });
 
 
   $(".cancel").click(function(){
     // console.log("cancel");
+    // var inputFormTaskShow = false;
+
     $(".workspace-color").fadeOut(100);
     $(".workspace-category").fadeOut(100);
     $(".workspace").fadeOut(100);
@@ -36,6 +41,56 @@ $(function(){
     $('.workspace-category__edit').fadeOut(100);
   });
 
+  //categoryの初期状態に関するjs
+  const color_id = $("#workspace-category__edit-1").find(".color-status").text();
+
+  switch(color_id){
+    case '1':
+      $(".selected-color option[value='1']").prop('selected', true);
+      break;
+    case '2':
+      $(".selected-color option[value='2']").prop('selected', true);
+      break;
+    case '3':
+      $(".selected-color option[value='3']").prop('selected', true);
+      break;
+    case '4':
+      $(".selected-color option[value='4']").prop('selected', true);
+      break;
+    case '5':
+      $(".selected-color option[value='5']").prop('selected', true);
+      break;
+    case '6':
+      $(".selected-color option[value='6']").prop('selected', true);
+      break;
+    case '7':
+      $(".selected-color option[value='7']").prop('selected', true);
+      break;
+    case '8':
+      $(".selected-color option[value='8']").prop('selected', true);
+      break;
+    case '9':
+      $(".selected-color option[value='9']").prop('selected', true);
+      break;
+    case '10':
+      $(".selected-color option[value='10']").prop('selected', true);
+      break;
+    case '11':
+      $(".selected-color option[value='11']").prop('selected', true);
+      break;
+    case '12':
+      $(".selected-color option[value='12']").prop('selected', true);
+      break;
+    case '13':
+      $(".selected-color option[value='13']").prop('selected', true);
+      break;
+    case '14':
+      $(".selected-color option[value='14']").prop('selected', true);
+      break;
+    case '15':
+      $(".selected-color option[value='15']").prop('selected', true);
+      break;
+  }
 
   // categoryに関するjs
   $(".update-span").click(function(){

@@ -1,12 +1,12 @@
 $(function() {    
   var color_data = $('#color-selector').find('.color-status').text();
-  console.log(color_data);
+  // console.log(color_data);
   var color = color_data.split(":");
   var color_id = color[0];
   var color_name = color[1];
   var color_status = color[2];
 
-  console.log(color);
+  // console.log(color);
 
   var background_color;
     switch(color_name){

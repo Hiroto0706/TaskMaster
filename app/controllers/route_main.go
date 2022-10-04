@@ -196,7 +196,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		task.Category = category
 		task.Colors = colors
 
-		generateHTML(w, task, "layout", "index", "mypage_btn_public", "lists_public", "workspace_section", "workspace_color", "workspace_category", "workspace_task")
+		generateHTML(w, task, "layout", "index", "mypage_btn_public", "lists_public", "workspace_section", "workspace_color", "workspace_category", "workspace_task", "create-task")
 	}
 }
 
@@ -221,7 +221,7 @@ func create(w http.ResponseWriter, r *http.Request) {
 		}
 
 		colorStr := r.PostFormValue("color")
-		// log.Println(colorStr)
+
 		var color int
 		if colorStr == "0" {
 			color = 16
@@ -376,7 +376,7 @@ func update(w http.ResponseWriter, r *http.Request, id int) {
 			if err != nil {
 				log.Println(err)
 			}
-		}else {
+		} else {
 			task.Status = false
 			err = task.UpdataTask()
 			if err != nil {
